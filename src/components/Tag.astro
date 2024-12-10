@@ -1,0 +1,45 @@
+---
+// Tags.astro
+const tags = [
+  "All",
+  "Computer",
+  "Python",
+  "Machine Learning",
+  "Cybersecurity",
+  "Web Development",
+  "JavaScript30",
+];
+---
+<div class="tags-container d-flex gap-2 py-1 px-1 overflow-auto m-0">
+  {tags.map((tag, index) => (
+    <button
+      class={`btn btn-outline-secondary ${index === 0 ? 'active' : ''}`}
+      type="button"
+    >
+      <b>{tag}</b>
+    </button>
+  ))}
+</div>
+<style>
+  
+  .tags-container {
+    white-space: nowrap;
+  }
+  
+  .tags-container button {
+    border-radius: 10px;
+    /* font-weight: 500; */
+    padding: 3px 10px;
+  }
+  
+  .tags-container button.active {
+    background-color: #f1f1f1;
+    border-color: #ddd;
+    color: #000;
+  }
+  #sidebar {
+    display: none; /* Hidden by default on smaller screens */
+    transition: transform 0.3s ease-in-out;
+}
+
+</style>

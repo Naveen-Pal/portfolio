@@ -1,0 +1,146 @@
+
+    <section class="terminal-section">
+      <div class="terminal" id="terminal">
+        <div class="output">Welcome to the custom terminal! Type `help` for a list of commands.</div>
+        <div>
+          <span class="prompt">user@website:~$</span> <input id="input" type="text" autocomplete="off">
+        </div>
+      </div>
+    </section>
+  
+  <style>
+    /* Terminal Component Styles */
+    .terminal-section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 70vh;
+    }
+  
+    .terminal {
+      width: 90%;
+      max-width: 800px;
+      background-color: #ffffff;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 20px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      overflow-y: auto;
+      max-height: 70vh;
+      font-family: 'Courier New', monospace;
+      color: #333;
+    }
+  
+    .terminal input {
+      background: transparent;
+      border: none;
+      color: inherit;
+      outline: none;
+      width: 100%;
+      font-family: inherit;
+      font-size: 16px;
+    }
+  
+    .terminal .output {
+      white-space: pre-wrap;
+      margin-bottom: 10px;
+    }
+  
+    .error {
+      color: red;
+    }
+  
+    .success {
+      color: green;
+    }
+  
+    .prompt {
+      color: #0056b3;
+    }
+  
+    /* Dark Theme Preparation */
+    body.dark .terminal {
+      background-color: #1e1e1e;
+      border: 1px solid #444;
+      color: #f9f9f9;
+    }
+  
+    body.dark .prompt {
+      color: #7bd1ff;
+    }
+  </style>
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const terminal = document.getElementById("terminal");
+      const input = document.getElementById("input");
+  
+      // Command handlers
+      const commands = {
+        ls: () => "name.txt  aboutme.txt  projects.txt  blogs.txt",
+        pwd: () => "/home/user",
+        clear: () => {
+          terminal.innerHTML = "";
+          return "";
+        },
+        cls: () => commands.clear(),
+        echo: (args) => args.join(" "),
+        whoami: () => "Naveen Pal",
+        date: () => new Date().toDateString(),
+        time: () => new Date().toLocaleTimeString(),
+        cat: (args) => {
+          const fileContents = {
+            "name.txt": "Naveen Pal",
+            "aboutme.txt": "I am a passionate developer and cybersecurity enthusiast.",
+            "projects.txt": "1. Portfolio Website\n2. Timetable App\n3. AI Assistant\n4. Knative Serverless Projects",
+            "blogs.txt": "Stay tuned for my upcoming blogs!"
+          };
+          return fileContents[args[0]] || `cat: ${args[0]}: No such file`;
+        },
+        about: () =>
+          "Welcome to my custom terminal! I'm Naveen Pal, a 2nd-year CSE student with interests in system design, cybersecurity, and open source.",
+        help: () =>
+          "Available commands:\n- ls\n- pwd\n- clear/cls\n- echo [text]\n- whoami\n- date\n- time\n- cat [file]\n- about\n- help\n- joke\n- randomfact\n- projects",
+        joke: () =>
+          "Why do programmers prefer dark mode?\nBecause light attracts bugs!",
+        randomfact: () =>
+          "Did you know? The first computer virus was created in 1986 and was called Brain!",
+        projects: () =>
+          "Projects:\n1. Timetable App\n2. AI-powered Assistant\n3. Kubernetes-based Deployment\n4. Cybersecurity CTF Challenges"
+      };
+  
+      // Error handling
+      const handleCommand = (input) => {
+        const [command, ...args] = input.trim().split(" ");
+        if (commands[command]) {
+          return commands[command](args);
+        }
+        return `<span class="error">Command not found: ${command}</span>`;
+      };
+  
+      // Handle user input
+      input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          const userCommand = input.value.trim();
+          if (!userCommand) return;
+  
+          // Display the command and output
+          const commandElement = document.createElement("div");
+          commandElement.innerHTML = `<span class="prompt">user@website:~$</span> ${userCommand}`;
+          terminal.appendChild(commandElement);
+  
+          const output = document.createElement("div");
+          output.classList.add("output");
+          output.innerHTML = handleCommand(userCommand);
+          terminal.appendChild(output);
+  
+          // Clear input
+          input.value = "";
+  
+          // Scroll to the bottom
+          terminal.scrollTop = terminal.scrollHeight;
+        }
+      });
+    });
+  </script>
+  

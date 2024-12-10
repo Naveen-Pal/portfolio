@@ -1,0 +1,28 @@
+---
+export const frontmatter = { title: "", description: "", image: "" };
+---
+
+<article class="post">
+    <header>
+        <h1>{frontmatter.title}</h1>
+        <p>{frontmatter.description}</p>
+        <img src={frontmatter.image}/>
+    </header>
+    <main>
+        <slot />
+    </main>
+</article>
+
+<style>
+    .post {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        line-height: 1.6;
+    }
+    .post img {
+        width: 100%;
+        height: auto;
+    }
+</style>

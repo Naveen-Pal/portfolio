@@ -1,0 +1,84 @@
+<aside id="sidebar" class="bg-light border-end p-3" style="width: 240px; position: fixed; top: 60px; bottom: 0;">
+  <ul class="list-unstyled">
+    <li class="mb-3">
+      <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+        <i class="fas fa-home me-2"></i>
+        <span>Home</span>
+      </a>
+    </li>
+    <li class="mb-3">
+      <a href="/terminal" class="d-flex align-items-center text-dark text-decoration-none">
+        <i class="fas fa-terminal me-2"></i>
+        <span>Terminal</span>
+      </a>
+    </li>
+    <li class="mb-3">
+      <a href="#" class="d-flex align-items-center text-dark text-decoration-none">
+        <i class="fas fa-user me-2"></i>
+        <span>Subscriptions</span>
+      </a>
+    </li>
+    <hr>
+    <li class="mb-3">
+      <a href="#" class="d-flex align-items-center text-dark text-decoration-none">
+        <i class="fas fa-photo-video me-2"></i>
+        <span>Projects</span>
+      </a>
+    </li>
+    <li>
+      <a href="#" class="d-flex align-items-center text-dark text-decoration-none">
+        <i class="fas fa-history me-2"></i>
+        <span>Blogs</span>
+      </a>
+    </li>
+  </ul>
+</aside>
+
+<!-- <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const menuIcon = document.getElementById("menu-icon");
+        const sidebar = document.getElementById("sidebar");
+
+        // Toggle sidebar visibility
+        menuIcon.addEventListener("click", () => {
+            console.log("Menu icon clicked!");
+            sidebar.classList.toggle("show");
+        });
+
+        // Close sidebar on outside click (only for small screens)
+        document.addEventListener("click", (e) => {
+            if (
+                sidebar.classList.contains("show") &&
+                !sidebar.contains(e.target) &&
+                !menuIcon.contains(e.target) &&
+                window.innerWidth < 992
+            ) {
+                sidebar.classList.remove("show");
+            }
+        });
+    });
+</script> -->
+
+<style>
+#sidebar {
+  /* z-index: 1040; */
+  transition: transform 0.3s ease-in-out;
+  transform: translateX(-100%); /* Hidden by default */
+  /* width: 240px; */
+  /* position: fixed; */
+  top: 60px;
+  bottom: 0;
+  background-color: #f8f9fa; /* Light gray background */
+}
+
+#sidebar.show {
+  transform: translateX(0); /* Slide in when shown */
+}
+
+/* @media (min-width: 992px) {
+  #sidebar {
+    transform: translateX(0); 
+  }
+} */
+
+</style>
