@@ -8,38 +8,42 @@ const tags = [
   "Cybersecurity",
   "Web Development",
   "JavaScript30",
+  "React",
+  "C++",
+  "Kubernetes",
+  "DevOps",
 ];
 ---
-<div class="tags-container d-flex gap-2 py-1 px-1 overflow-auto m-0">
+
+<div class="tags-container d-flex gap-2 py-3 px-3 overflow-auto">
   {tags.map((tag, index) => (
     <button
-      class={`btn btn-outline-secondary ${index === 0 ? 'active' : ''}`}
+      class={`btn btn-light ${index === 0 ? 'active' : ''}`}
       type="button"
     >
-      <b>{tag}</b>
+      {tag}
     </button>
   ))}
 </div>
+
+
 <style>
-  
-  .tags-container {
-    white-space: nowrap;
-  }
-  
-  .tags-container button {
-    border-radius: 10px;
-    /* font-weight: 500; */
-    padding: 3px 10px;
-  }
-  
-  .tags-container button.active {
-    background-color: #f1f1f1;
-    border-color: #ddd;
-    color: #000;
-  }
-  #sidebar {
-    display: none; /* Hidden by default on smaller screens */
-    transition: transform 0.3s ease-in-out;
+.tags-container {
+  white-space: nowrap;
+  max-width: 90vw;
+}
+
+.tags-container button {
+  border-radius: 20px;
+  font-weight: 500;
+  padding: 5px 15px;
+}
+
+.tags-container button.active {
+  /* background-color: #f1f1f1; */
+  background-color: #0f0f0f;
+  border-color: #ddd;
+  color: #fff;
 }
 
 </style>

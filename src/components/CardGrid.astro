@@ -1,0 +1,40 @@
+---
+import Card from "../components/Card.astro";
+
+const projects = await Astro.glob('../pages/projects/*.md');
+const blogs = await Astro.glob('../pages/blogs/*.md');
+---
+
+<div class="card-grid">
+    {projects.map((project) => {
+        const { url, frontmatter } = project;
+        return (
+            <a href={url} key={url}>
+                <Card {...frontmatter} />
+            </a>
+        );
+    })}
+    {blogs.map((blog) => {
+        const { url, frontmatter } = blog;
+        return (
+            <a href={url} key={url}>
+                <Card {...frontmatter} />
+            </a>
+        );
+    })}
+</div>
+
+<style>
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Dynamically adjusts columns */
+    gap: 20px;
+    padding: 20px;
+}
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+</style>

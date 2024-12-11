@@ -1,4 +1,5 @@
 ---
+layout: ../../layouts/post.astro
 title: My NDA SSB
 author: Naveen Pal
 description: "My whole NDA-SSB experience"

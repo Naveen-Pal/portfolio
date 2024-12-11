@@ -1,4 +1,5 @@
 ---
+layout: ../../layouts/post.astro
 title: What's inside Dark web
 author: Naveen Pal
 description: "a exploration of dark - how safe or dangerous this is"

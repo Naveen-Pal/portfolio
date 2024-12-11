@@ -1,7 +1,8 @@
 ---
+layout: ../../layouts/post.astro
 title: 'My Internship at the Invention Factory, IIT Jammu'
 pubDate: 2023-07-20
-description: 'A summer of intense innovation and teamwork, transforming challenges into groundbreaking solutions for elderly mobility.'
+description: 'intense innovation and teamwork, transforming challenges into groundbreaking solutions for elderly mobility.'
 author: 'Naveen Pal'
 image:
     url: 'https://docs.astro.build/assets/full-logo-light.png'

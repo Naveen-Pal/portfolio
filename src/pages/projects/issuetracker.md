@@ -1,4 +1,5 @@
 ---
+layout: ../../layouts/post.astro
 title: 'Issue Tracker'
 description: 'Description for project three.'
 pubDate: 2023-05-12

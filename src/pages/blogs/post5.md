@@ -1,4 +1,5 @@
 ---
+layout: ../../layouts/post.astro
 title: Computer labs of IITGN is vulnerable to remote access!!
 author: Naveen Pal
 description: "How I Discovered a Remote Access Vulnerability in IITGN's Computer Lab"

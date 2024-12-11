@@ -1,0 +1,28 @@
+---
+// In RelatedPosts.astro
+const { title, image, description, pubDate, link } = Astro.props;
+// console.log(Astro.props);
+---
+
+
+<div class="related-post">
+  <div class="list-group">
+      <a
+        href={link}
+        class="list-group-item-action d-flex align-items-center"
+      >
+        <img src={image.url} alt={title} class="me-3 rounded" style="width: 150px ;  aspect-ratio: 16 / 9;" />
+        <div class="text-truncate">
+          <p class="mb-1 fw-bold">{title}</p>
+          <p class="mb-1">{description}</p>
+          <small>{new Date(pubDate).toLocaleDateString()}</small>
+        </div>
+      </a>
+  </div>
+
+</div>
+<style>
+  a{
+    text-decoration: none;
+  }
+</style>

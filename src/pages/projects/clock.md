@@ -1,5 +1,7 @@
 ---
+layout: ../../layouts/post.astro
 title: 'Clock'
+author: Naveen Pal
 description: 'Description for project two.'
 image: 
     url: '/project/clock.png'

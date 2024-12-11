@@ -9,8 +9,8 @@
     </div>
     <!-- Search Bar -->
     <div class="d-flex flex-grow-1 justify-content-center">
-      <div class="input-group" style="max-width: 500px;">
-        <input type="text" class="form-control" placeholder="Search Blogs...">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search">
         <button class="btn btn-outline-secondary">
           <i class="fa-solid fa-terminal"></i>
         </button>
@@ -23,3 +23,25 @@
     </div>
   </div>
 </nav>
+
+<style>
+  .input-group {
+    max-width: 50vw; /* Default max width */
+    width: 100%;      /* Make it responsive */
+  }
+
+  @media (max-width: 768px) {
+    .input-group {
+      max-width: 30vw; /* Adjust for smaller screens */
+    }
+  }
+
+  @media (max-width: 576px) {
+    .form-control{
+      display: none;
+    }
+    .input-group {
+      max-width: 10vw;
+    }
+  }
+</style>

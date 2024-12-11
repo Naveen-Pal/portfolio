@@ -1,4 +1,5 @@
 ---
+layout: ../../layouts/post.astro
 title: BAS portal admin page unauthorised access
 author: Naveen Pal
 description: "gaining access to admin panel is easy"

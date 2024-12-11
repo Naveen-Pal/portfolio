@@ -1,4 +1,5 @@
 ---
+layout: ../../layouts/post.astro
 title: 'Time Table'
 description: 'Description for project three.'
 image: 
