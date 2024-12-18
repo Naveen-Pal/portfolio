@@ -7,7 +7,7 @@ image:
     url: "https://docs.astro.build/assets/arc.webp"
     alt: "Thumbnail of Astro arcs."
 pubDate: 2023-11-28
-tags: ["hacking", "bas", "bug bounty"]
+tags: ["hacking", "bug hunting"]
 ---
 
 <!-- I have hacked the admin page of BAS portal

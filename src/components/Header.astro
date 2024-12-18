@@ -10,7 +10,7 @@
     <!-- Search Bar -->
     <div class="d-flex flex-grow-1 justify-content-center">
       <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search">
+        <input type="text" class="form-control" placeholder="Type a command...">
         <button class="btn btn-outline-secondary">
           <i class="fa-solid fa-terminal"></i>
         </button>
@@ -23,11 +23,12 @@
     </div>
   </div>
 </nav>
-
 <style>
+  
   .input-group {
     max-width: 50vw; /* Default max width */
     width: 100%;      /* Make it responsive */
+    transition: opacity 0.3s ease-in-out;
   }
 
   @media (max-width: 768px) {

@@ -1,16 +1,19 @@
 ---
 layout: ../../layouts/post.astro
-title: 'Migrating SRIP portal ti serverless'
+title: 'Migrating SRIP portal to serverless'
 description: 'This is my course project under prof. Sameer G. kulkarni. '
 image: 
-    url: '/project/timetable.png'
+    url: '/project/srip.png'
     alt: 'timetable'
 pubDate: 2023-05-12
 link: 'https://naveen-pal.github.io/timetable_2sem/'
 github: 'https://github.com/naveen-pal/timetable_2sem'
+tags: ["docker","serverless","kubernates","knative"]
 ---
 
-This project leverages serverless, event-driven architecture with Knative services to optimize portal performance. By enabling auto-scaling, dynamic resource allocation, and cost efficiency, it minimizes wastage and ensures seamless operation under varying workloads. The solution automates scaling, traffic routing, and resource management, providing a reliable, secure, and efficient platform tailored for dynamic, high-traffic event-driven applications.
+This project leverages serverless, event-driven architecture with Knative services to optimize SRIP portal performance. By enabling auto-scaling, dynamic resource allocation, and cost efficiency, it minimizes wastage and ensures seamless operation under varying workloads. The solution automates scaling, traffic routing, and resource management, providing a reliable, secure, and efficient platform tailored for dynamic, high-traffic event-driven applications.
+
+<b>In simple words</b>, we are making SRIP portal capable to handel high traffic by effictively utilising the resources.
 
 ## Last year case Study 
 

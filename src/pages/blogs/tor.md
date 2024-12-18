@@ -7,7 +7,7 @@ image:
     url: "https://docs.astro.build/default-og-image.png"
     alt: "The word astro against an illustration of planets and stars."
 pubDate: 2024-11-29
-tags: ["dark web", "security","tor","onion"]
+tags: ["web", "security","computer"]
 ---
 
 # Tor

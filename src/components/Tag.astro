@@ -1,31 +1,27 @@
 ---
 // Tags.astro
-const tags = [
-  "All",
-  "Computer",
-  "Python",
-  "Machine Learning",
-  "Cybersecurity",
-  "Web Development",
-  "JavaScript30",
-  "React",
-  "C++",
-  "Kubernetes",
-  "DevOps",
-];
+const projects = await Astro.glob('../pages/projects/*.md');
+const blogs = await Astro.glob('../pages/blogs/*.md');
+
+// Collect unique tags from all posts
+const allPosts = [...projects, ...blogs];
+const uniqueTags = new Set(allPosts.flatMap(post => post.frontmatter.tags || []));
 ---
 
 <div class="tags-container d-flex gap-2 py-3 px-3 overflow-auto">
-  {tags.map((tag, index) => (
+  <button class="btn btn-light active" type="button" data-tag="All">
+    All
+  </button>
+  {Array.from(uniqueTags).map((tag) => (
     <button
-      class={`btn btn-light ${index === 0 ? 'active' : ''}`}
+      class="btn btn-light"
       type="button"
+      data-tag={tag}
     >
       {tag}
     </button>
   ))}
 </div>
-
 
 <style>
 .tags-container {
@@ -40,10 +36,52 @@ const tags = [
 }
 
 .tags-container button.active {
-  /* background-color: #f1f1f1; */
   background-color: #0f0f0f;
   border-color: #ddd;
   color: #fff;
 }
-
 </style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const tagButtons = document.querySelectorAll(".tags-container button");
+    const cardGrid = document.querySelector(".card-grid");
+    const allCards = cardGrid ? cardGrid.querySelectorAll("a") : [];
+
+    tagButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        // Remove active class from all buttons
+        tagButtons.forEach((btn) => btn.classList.remove("active"));
+        
+        // Add active class to clicked button
+        button.classList.add("active");
+        
+        // Get the selected tag
+        const selectedTag = button.getAttribute("data-tag");
+        
+        // Filter cards
+        allCards.forEach((card) => {
+          // Find the tags container (adjust selector if needed)
+          const tagsContainer = card.querySelector(".tags-container");
+          
+          // If no tags container, show the card (or handle as needed)
+          if (!tagsContainer) {
+            card.style.display = "block";
+            return;
+          }
+
+          // Get tags and split (handle potential null/undefined)
+          const cardTagsAttr = tagsContainer.getAttribute("data-tags");
+          const cardTags = cardTagsAttr ? cardTagsAttr.split(",") : [];
+          
+          // Determine visibility
+          if (selectedTag === "All" || cardTags.includes(selectedTag)) {
+            card.style.display = "block";
+          } else {
+            card.style.display = "none";
+          }
+        });
+      });
+    });
+  });
+</script>

@@ -1,9 +1,9 @@
 ---
-const { title, pubDate, description, image } = Astro.props;
+const { title, pubDate, description, image, tags = [] } = Astro.props;
 ---
 
 <div class="post-card d-flex flex-column">
-  <div class="thumbnail ">
+  <div class="thumbnail">
     <img src={image.url} alt={image.alt} class="card-img-top rounded border shadow-sm" />
   </div>
   <div class="d-flex mt-1 px-3 align-items-start">
@@ -23,28 +23,34 @@ const { title, pubDate, description, image } = Astro.props;
           year: 'numeric',
         })}
       </p>
+      
+      {tags && tags.length > 0 && (
+        <div class="tags-container mt-2">
+          {tags.map((tag) => (
+            <span class="tag">{tag}</span>
+          ))}
+        </div>
+      )}
     </div>
   </div>
 </div>
 
 <style>
 .post-card {
-  max-width: 100%; 
+  /* max-width: 100%;  */
+  max-width: 400px;
   overflow: hidden; 
   margin: 0 auto; 
 }
 .thumbnail img {
-  width: 100%;
-  object-fit: cover;
+  /* width: 100%; */
+  object-fit: contain;
   aspect-ratio: 16 / 9;
 }
 
-
 .thumbnail:hover {
-
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
-
 
 .avatar {
   width: 40px;
@@ -53,7 +59,6 @@ const { title, pubDate, description, image } = Astro.props;
   flex-shrink: 0; 
   margin-top: 4px;
 }
-
 
 .post-details {
   flex-grow: 1; 
@@ -73,5 +78,18 @@ const { title, pubDate, description, image } = Astro.props;
   line-height: 1.3;
 }
 
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
 
-</style> 
+.tag {
+  background-color: #f0f0f0;
+  color: #333;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  white-space: nowrap;
+}
+</style>

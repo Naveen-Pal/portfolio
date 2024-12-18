@@ -5,8 +5,9 @@ pubDate: 2023-07-20
 description: 'intense innovation and teamwork, transforming challenges into groundbreaking solutions for elderly mobility.'
 author: 'Naveen Pal'
 image:
-    url: 'https://docs.astro.build/assets/full-logo-light.png'
-    alt: 'The full Astro logo.'
+    url: '/post/if.png'
+    alt: 'Invention Factory'
+tags: ['problem solving',"experience"]
 ---
 
 
@@ -36,4 +37,5 @@ The Invention Factory was more than an internship; it was a transformative exper
 A heartfelt thank you to everyone at the Maker Bhavan Foundation and IIT Jammu for orchestrating such a fantastic program. Special thanks to my teammates and every mentor and staff member who guided us through this unforgettable journey.
 
 Looking Ahead
+The Invention Factory has left an indelible mark on me, shaping my perspectives and aspirations.
 Armed with a new set of skills, incredible memories, and lasting friendships, I look forward to what the future holds. The Invention Factory wasn't just a chapter in my academic career; it was a milestone in my personal and professional growth.

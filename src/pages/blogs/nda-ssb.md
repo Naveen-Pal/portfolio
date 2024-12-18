@@ -5,8 +5,9 @@ author: Naveen Pal
 description: "My whole NDA-SSB experience"
 pubDate: 2022-07-15
 image:
-    url: 'https://docs.astro.build/assets/full-logo-light.png'
+    url: '/post/nda.jpg'
     alt: 'The full Astro logo.'
+tags: ['experience']
 ---
 
 # NDA SSB Airforce in Gandhinagar

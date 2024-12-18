@@ -8,4 +8,7 @@ image:
     alt: 'issuetracker'
 link: 'https://github.com/Naveen-Pal/issue-tracker'
 github: 'https://github.com/naveen-pal/issue-tracker'
+tags: ['Web development',"flask","mysql"]
 ---
+
+We 
