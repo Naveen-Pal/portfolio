@@ -1,166 +1,357 @@
-<section class="terminal-section">
-  <div class="terminal" id="terminal">
-    <div class="output">Welcome to the custom terminal! Type `help` for a list of commands.</div>
-    <div id="terminal-rows"></div>
-    <div class="input-row">
-      <span class="prompt">user@website:~$</span>
-      <input id="input" type="text" autocomplete="off">
+<!-- Add this inside your navbar's search section -->
+<div class="terminal-dropdown mx-4">
+  <div class="input-group terminal-bar">
+    <input type="text" class="form-control terminal-input" id="terminal-input" placeholder="Type a command..." readonly>
+    <button class="btn btn-outline-secondary terminal-btn">
+      <i class="fa-solid fa-terminal"></i>
+    </button>
+  </div>
+  
+  <div class="terminal-window" id="terminal-window">
+    <div class="terminal-header d-flex justify-content-between align-items-center px-3 py-2">
+      <div class="terminal-controls">
+        <span class="control close"></span>
+        <span class="control minimize"></span>
+        <span class="control maximize"></span>
+      </div>
+      <small class="text-muted">Portfolio Terminal</small>
+    </div>
+    <div class="terminal-body" id="terminal-body">
+      <div class="output welcome-message">Welcome to the portfolio terminal! Type 'help' for commands.</div>
+      <div id="terminal-rows"></div>
+      <div class="input-line">
+        <span class="prompt">guest@portfolio:<span class="path">~</span>$</span>
+        <input type="text" class="active-input" id="active-terminal-input" autofocus>
+        <span class="typed-cursor">█</span>
+      </div>
     </div>
   </div>
-</section>
+</div>
 
 <style>
-  /* Terminal Component Styles */
+.terminal-dropdown {
+  position: relative;
+  width: 100%;
+}
 
-  .terminal-section {
-    background-color: #1e1e1e;
-    border: 1px solid #444;
-    border-radius: 5px;
-    padding: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    overflow-y: auto;
-    max-height: 70vh;
-    font-family: 'Courier New', monospace;
-    color: #f9f9f9;
-    white-space: pre-wrap;
+/* Hide default input on mobile */
+@media (max-width: 576px) {
+  .terminal-input {
+    display: none !important;
   }
+  
+  .terminal-btn {
+    border-radius: 4px !important;
+    margin-left: auto;
+  }
+  
+  .terminal-dropdown {
+    /* margin: 0 !important; */
+  }
+}
 
-  .input-row {
-    display: flex;
-    align-items: center;
-    /* width: 90%; */
-    /* max-width: 800px; */
-    font-family: 'Courier New', monospace;
-    color: #7bd1ff;
-    margin-top: 10px;
-  }
+.terminal-window {
+  display: none;
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  right: 0;
+  background: #1a1b26;
+  border-radius: 10px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  overflow: hidden;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+}
 
-  .terminal .output {
-    margin-bottom: 10px;
-    word-wrap: break-word;
-  }
+.terminal-window.show {
+  opacity: 1;
+  transform: translateY(0);
+}
 
-  .terminal .output .error {
-    color: red;
-  }
+.terminal-bar {
+  transition: all 0.3s ease;
+}
 
-  .terminal .output .success {
-    color: green;
-  }
+.terminal-bar.hide {
+  opacity: 0;
+  transform: translateY(-10px);
+}
 
-  .prompt {
-    color: #7bd1ff;
-    margin-right: 5px;
-  }
+.terminal-header {
+  background: #1f2335;
+  border-bottom: 1px solid #2f334d;
+}
 
-  #input {
-    background: transparent;
-    border: none;
-    color: #ffffff;
-    outline: none;
-    width: 100%;
-    font-family: inherit;
-    font-size: 16px;
+.terminal-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.control {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.close { background: #ff5f57; }
+.minimize { background: #febc2e; }
+.maximize { background: #28c840; }
+
+.terminal-body {
+  padding: 16px;
+  max-height: 400px;
+  overflow-y: auto;
+  color: #a9b1d6;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.input-line {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+  position: relative; /* Add this */
+}
+
+.active-input {
+  background: transparent;
+  border: none;
+  color: #a9b1d6;
+  font-family: inherit;
+  font-size: inherit;
+  width: 1px;  /* Change from flex: 1 to width: 1px */
+  flex-grow: 1; /* Add this */
+  outline: none;
+  margin-left: 8px;
+  position: relative; /* Add this */
+}
+
+
+.prompt {
+  color: #7aa2f7;
+  white-space: nowrap;
+}
+
+.path {
+  color: #9ece6a;
+}
+
+.output {
+  margin-bottom: 8px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.output.error {
+  color: #f7768e;
+}
+
+.output.success {
+  color: #9ece6a;
+}
+
+.welcome-message {
+  color: #bb9af7;
+  font-weight: 500;
+}
+
+.typed-cursor {
+  position: absolute; /* Add this */
+  left: calc(8px + 17ch); /* Position after prompt spacing */
+  animation: blink 1s infinite;
+  color: #7aa2f7;
+  pointer-events: none; /* Add this */
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.terminal-body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.terminal-body::-webkit-scrollbar-track {
+  background: #1f2335;
+}
+
+.terminal-body::-webkit-scrollbar-thumb {
+  background: #2f334d;
+  border-radius: 4px;
+}
+
+.terminal-body::-webkit-scrollbar-thumb:hover {
+  background: #3b4261;
+}
+
+@media (max-width: 768px) {
+  .terminal-window {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 0;
+    max-height: calc(100vh - 60px);
   }
+  
+  .terminal-body {
+    max-height: calc(100vh - 120px);
+  }
+}
 </style>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/figlet/1.5.0/figlet.min.js"></script>
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const terminal = document.getElementById("terminal");
-    const terminalRows = document.getElementById("terminal-rows");
-    const input = document.getElementById("input");
+document.addEventListener('DOMContentLoaded', () => {
+  const terminalBar = document.querySelector('.terminal-bar');
+  const terminalWindow = document.getElementById('terminal-window');
+  const terminalBody = document.getElementById('terminal-body');
+  const terminalRows = document.getElementById('terminal-rows');
+  const activeInput = document.getElementById('active-terminal-input');
 
-    // Command handlers
-    const commands = {
-      ls: () => "name.txt  aboutme.txt  projects.txt  blogs.txt",
-      pwd: () => "/home/user",
-      clear: () => {
-        terminalRows.innerHTML = "";
-        return "";
-      },
-      cls: () => commands.clear(),
-      echo: (args) => args.join(" "),
-      whoami: () => "Naveen Pal",
-      date: () => new Date().toDateString(),
-      time: () => new Date().toLocaleTimeString(),
-      cat: (args) => {
-        const fileContents = {
-          "name.txt": "Naveen Pal",
-          "aboutme.txt": "I am a passionate developer and cybersecurity enthusiast.",
-          "projects.txt": "1. Portfolio Website\n2. Timetable App\n3. AI Assistant\n4. Knative Serverless Projects",
-          "blogs.txt": "Stay tuned for my upcoming blogs!",
-        };
-        return fileContents[args[0]] || `cat: ${args[0]}: No such file`;
-      },
-      help: () =>
-        "Available commands:\n- ls\n- pwd\n- clear/cls\n- echo [text]\n- whoami\n- date\n- time\n- cat [file]\n- about\n- help\n- cowsay [text]\n- figlet [text]",
-      cowsay: (args) => {
-        const message = args.join(" ");
-        return `
-         ${"_".repeat(message.length + 2)}
-        < ${message} >
-         ${"-".repeat(message.length + 2)}
-                \\   ^__^
-                 \\  (oo)\\_______
-                    (__)\\       )\\/\\
-                        ||----w |
-                        ||     ||`;
-      },
-      figlet: (args) => {
-      let output = "";
-      figlet.text(args.join(" "), { horizontalLayout: "fitted" }, (err, data) => {
-        if (err) {
-          output = `<span class="error">Error generating figlet text.</span>`;
-        } else {
-          output = `<pre>${data}</pre>`;
-        }
-        const outputElement = document.createElement("div");
-        outputElement.classList.add("output");
-        outputElement.innerHTML = output;
-        terminal.appendChild(outputElement);
-        terminal.scrollTop = terminal.scrollHeight;
-      });
-      return ""; // Return empty initially since figlet.text is async
+  // File system simulation
+  const fileSystem = {
+    '/home/guest': {
+      'name.txt': 'Naveen Pal\nFull Stack Developer',
+      'aboutme.txt': 'I am a passionate developer focused on creating innovative web solutions.',
+      'projects.txt': `Current Projects:
+1. Portfolio Website - A modern developer portfolio
+2. E-commerce Platform - Full stack shopping application
+3. Blog Engine - Custom blogging platform
+4. Chat Application - Real-time messaging system`,
+      'blogs.txt': `Recent Blog Posts:
+1. "Getting Started with React" - Published 2 weeks ago
+2. "Understanding TypeScript" - Published 1 month ago
+3. "Docker for Beginners" - Published 2 months ago`,
+      'skills.txt': `Technical Skills:
+• Frontend: React, Vue.js, JavaScript, TypeScript
+• Backend: Node.js, Python, Java
+• Database: MongoDB, PostgreSQL
+• DevOps: Docker, Kubernetes, AWS`
+    }
+  };
+
+  let currentPath = '/home/guest';
+
+  // Command handlers
+  const commands = {
+    ls: (args) => {
+      const path = args[0] || currentPath;
+      return Object.keys(fileSystem[path]).join('  ');
     },
-
-    };
-
-    // Error handling
-    const handleCommand = (input) => {
-  const [command, ...args] = input.trim().split(" ");
-  if (commands[command]) {
-    const result = commands[command](args);
-    if (result) return result; // Return immediately for synchronous commands
-    return ""; // Prevent output duplication for async commands
-  }
-  return `<span class="error">Command not found: ${command}</span>`;
-};
-
-
-    // Handle user input
-    input.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") {
-        const userCommand = input.value.trim();
-        if (!userCommand) return;
-
-        // Create and add command row
-        const commandRow = document.createElement("div");
-        commandRow.innerHTML = `<span class="prompt" style="color: #7bd1ff;" >user@website:~$</span> <span>${userCommand}</span>`;
-        terminalRows.appendChild(commandRow);
-
-        // Handle command and add output row
-        const output = document.createElement("div");
-        output.classList.add("output");
-        output.innerHTML = handleCommand(userCommand);
-        terminalRows.appendChild(output);
-
-        // Clear input
-        input.value = "";
-
-        // Scroll to the bottom
-        terminal.scrollTop = terminal.scrollHeight;
+    pwd: () => currentPath,
+    cd: (args) => {
+      const newPath = args[0] || '/home/guest';
+      if (fileSystem[newPath]) {
+        currentPath = newPath;
+        return '';
       }
-    });
+      return `cd: no such directory: ${newPath}`;
+    },
+    cat: (args) => {
+      if (!args.length) return 'Usage: cat <filename>';
+      const file = fileSystem[currentPath][args[0]];
+      return file || `cat: ${args[0]}: No such file`;
+    },
+    clear: () => {
+      terminalRows.innerHTML = "";
+      return "";
+    },
+    help: () => `Available commands:
+• ls - List files in current directory
+• pwd - Print working directory
+• cd - Change directory
+• cat - View file contents
+• clear - Clear terminal
+• echo - Print text
+• date - Show current date
+• whoami - Show current user
+• help - Show this help message`,
+    echo: (args) => args.join(' '),
+    date: () => new Date().toLocaleString(),
+    whoami: () => 'guest',
+    tree: () => {
+      let output = '.';
+      for (const file of Object.keys(fileSystem[currentPath])) {
+        output += `\n└── ${file}`;
+      }
+      return output;
+    }
+  };
+
+  function handleCommand(cmd) {
+    const [command, ...args] = cmd.trim().split(' ');
+    const handler = commands[command];
+    if (handler) {
+      return handler(args);
+    }
+    return `Command not found: ${command}. Type 'help' for available commands.`;
+  }
+
+  // Toggle terminal
+  const terminalButton = document.querySelector('.terminal-btn');
+  const terminalInput = document.querySelector('.terminal-input');
+
+  function showTerminal() {
+    terminalBar.classList.add('hide');
+    setTimeout(() => {
+      terminalWindow.style.display = 'block';
+      setTimeout(() => {
+        terminalWindow.classList.add('show');
+        activeInput.focus();
+      }, 50);
+    }, 300);
+  }
+
+  function hideTerminal() {
+    terminalWindow.classList.remove('show');
+    setTimeout(() => {
+      terminalWindow.style.display = 'none';
+      terminalBar.classList.remove('hide');
+    }, 300);
+  }
+
+  terminalBar.addEventListener('click', showTerminal);
+  terminalButton.addEventListener('click', (e) => {
+    e.stopPropagation();
+    showTerminal();
   });
+
+  // Handle input
+  activeInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      const cmd = activeInput.value.trim();
+      if (!cmd) return;
+
+      // Add command to terminal
+      const cmdLine = document.createElement('div');
+      cmdLine.innerHTML = `<span class="prompt">guest@portfolio:<span class="path">~</span>$ </span>${cmd}`;
+      terminalRows.appendChild(cmdLine);
+
+      // Add output
+      const output = document.createElement('div');
+      output.classList.add('output');
+      output.textContent = handleCommand(cmd);
+      terminalRows.appendChild(output);
+
+      // Clear input and scroll to bottom
+      activeInput.value = '';
+      terminalBody.scrollTop = terminalBody.scrollHeight;
+    }
+  });
+
+  // Close terminal when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!terminalWindow.contains(e.target) && 
+        !terminalBar.contains(e.target)) {
+      hideTerminal();
+    }
+  });
+});
 </script>

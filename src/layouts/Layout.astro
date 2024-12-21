@@ -2,6 +2,7 @@
 import Header from "../components/Header.astro"
 import Sidebar from "../components/Sidebar.astro"
 import Terminal from "../components/Terminal.astro"
+import Notification from '../components/Notification.astro';
 ---
 
 <!DOCTYPE html>
@@ -21,8 +22,10 @@ import Terminal from "../components/Terminal.astro"
     <header>
         <Header />
     </header>
+    <!-- Notification Section -->
+    <Notification />
     <div class="ter-box">
-      <Terminal />
+      <!-- <Terminal /> -->
     </div>
     <!-- Sidebar and Main Content -->
     <div class="d-flex">
@@ -61,35 +64,7 @@ import Terminal from "../components/Terminal.astro"
         });
       });
     </script>
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const searchInput = document.querySelector(".form-control");
-        const terminalBox = document.querySelector(".ter-box");
-        const searchContainer = document.querySelector(".input-group");
-      
-        // When the search input is focused, show the terminal and hide the search bar
-        searchInput.addEventListener("focus", () => {
-          terminalBox.style.display = "block";
-          searchContainer.style.display = "none";
-        });
-      
-        // When the terminal loses focus, hide it and show the search bar
-        terminalBox.addEventListener("blur", () => {
-          terminalBox.style.display = "none";
-          searchContainer.style.display = "flex";
-        });
-      
-        // To handle terminal input
-        terminalBox.addEventListener("keydown", (e) => {
-          if (e.key === "Escape") {
-            // Hide terminal and show the search bar when Esc is pressed
-            terminalBox.style.display = "none";
-            searchContainer.style.display = "flex";
-          }
-        });
-      });
-      </script>
-    <style>
+    <style> 
       body {
     font-size: clamp(14px, 1vw, 18px);
 }

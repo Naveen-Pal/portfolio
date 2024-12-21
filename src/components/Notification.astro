@@ -1,0 +1,175 @@
+---
+// Notification.astro
+---
+
+<div class="dropdown-menu notification-container p-0" id="notification-container">
+    <div class="card border-0">
+      <div class="card-header bg-light d-flex justify-content-between align-items-center py-2">
+        <h6 class="mb-0">Notifications</h6>
+        <button class="btn btn-sm text-secondary" id="clear-notifications">Clear all</button>
+      </div>
+      <div class="card-body p-0">
+        <div class="notification-list" id="notification-list">
+          <!-- Notifications will be dynamically inserted here -->
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <style>
+  .notification-container {
+    position: fixed !important;
+    top: 60px !important;
+    right: 20px !important;
+    width: 300px;
+    max-height: 400px;
+    overflow-y: auto;
+    z-index: 1000;
+    display: none;
+  }
+  
+  /* .notification-badge {
+  position: absolute;
+  top: -8px;       
+  right: -8px;       
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  font-size: 0.7rem;
+  line-height: 18px;
+  text-align: center;
+  border-radius: 50% !important;  
+  transform: scale(0.9);          
+} */
+  
+  @media (max-width: 576px) {
+    .notification-container {
+      width: 100% !important;
+      right: 0 !important;
+      border-radius: 0 !important;
+    }
+  }
+  </style>
+  
+  <script>
+  const notificationData = [
+    {
+      id: 1,
+      title: "Welcome to my portfolio!",
+      time: "Just now",
+      unread: true
+    },
+    {
+      id: 2,
+      title: "Check out my latest project",
+      time: "2 hours ago",
+      unread: false
+    },
+    {
+      id: 3,
+      title: "New skill added: React Development",
+      time: "1 day ago",
+      unread: false
+    },
+    {
+      id: 4,
+      title: "Welcome to IIT Gandhinagar",
+      time: "Augest 2023",
+      unread: false
+    }
+  ];
+  
+  function initializeNotifications() {
+    const bellIcon = document.querySelector('.fa-bell');
+    const notificationContainer = document.getElementById('notification-container');
+    const notificationList = document.getElementById('notification-list');
+    const clearButton = document.getElementById('clear-notifications');
+    
+    // Create and append notification badge
+    const badge = document.createElement('span');
+    badge.className = 'badge rounded-pill bg-danger position-absolute top-0 start-100 translate-middle';
+    bellIcon.parentElement.classList.add('position-relative');
+    bellIcon.parentElement.appendChild(badge);
+    
+    // Toggle notification panel
+    bellIcon.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isVisible = notificationContainer.style.display === 'block';
+      notificationContainer.style.display = isVisible ? 'none' : 'block';
+      updateNotificationBadge();
+    });
+  
+    // Close notifications when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!notificationContainer.contains(e.target) && !bellIcon.contains(e.target)) {
+        notificationContainer.style.display = 'none';
+      }
+    });
+  
+    // Clear all notifications
+    clearButton.addEventListener('click', () => {
+      notificationList.innerHTML = `
+        <div class="text-center py-3 text-muted">
+          <i class="fas fa-check-circle mb-2"></i>
+          <p class="mb-0">All caught up!</p>
+        </div>
+      `;
+      notificationData.length = 0;
+      updateNotificationBadge();
+    });
+  
+    // Render notifications
+    function renderNotifications() {
+      if (notificationData.length === 0) {
+        notificationList.innerHTML = `
+          <div class="text-center py-3 text-muted">
+            <i class="fas fa-bell-slash mb-2"></i>
+            <p class="mb-0">No notifications</p>
+          </div>
+        `;
+        return;
+      }
+  
+      notificationList.innerHTML = notificationData
+        .map(notification => `
+          <div class="notification-item border-bottom ${notification.unread ? 'bg-light' : ''} p-3">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+              <h6 class="mb-0 text-truncate">${notification.title}</h6>
+              ${notification.unread ? '<span class="badge rounded-pill bg-primary">New</span>' : ''}
+            </div>
+            <small class="text-muted">
+              <i class="fas fa-clock me-1"></i>${notification.time}
+            </small>
+          </div>
+        `)
+        .join('');
+    }
+  
+    // Update notification badge
+    function updateNotificationBadge() {
+      const unreadCount = notificationData.filter(n => n.unread).length;
+      badge.textContent = unreadCount;
+      badge.style.display = unreadCount > 0 ? 'block' : 'none';
+    }
+  
+    // Mark notification as read
+    notificationList.addEventListener('click', (e) => {
+      const notificationItem = e.target.closest('.notification-item');
+      if (notificationItem) {
+        const index = Array.from(notificationList.children).indexOf(notificationItem);
+        if (notificationData[index]) {
+          notificationData[index].unread = false;
+          renderNotifications();
+          updateNotificationBadge();
+        }
+      }
+    });
+  
+    // Initial render
+    renderNotifications();
+    updateNotificationBadge();
+  }
+  
+  // Initialize when DOM is loaded
+  document.addEventListener('DOMContentLoaded', initializeNotifications);
+  </script>
