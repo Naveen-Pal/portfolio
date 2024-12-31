@@ -6,8 +6,7 @@ image:
     url: '/project/srip.png'
     alt: 'timetable'
 pubDate: 2023-05-12
-link: 'https://naveen-pal.github.io/timetable_2sem/'
-github: 'https://github.com/naveen-pal/timetable_2sem'
+links: []
 tags: ["docker","serverless","kubernates","knative"]
 ---
 

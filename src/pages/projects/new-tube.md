@@ -6,11 +6,28 @@ pubDate: 2023-05-12
 image: 
     url: '/project/portfolio.png'
     alt: 'issuetracker'
-link: 'https://github.com/Naveen-Pal/issue-tracker'
-github: 'https://github.com/naveen-pal/issue-tracker'
+links: [
+    {
+      "url": "https://github.com/portfolio",
+      "text": "Github of this portfolio",
+      "class": "btn-primary"
+    },
+    {
+      "url": "https://github.com/new-astro",
+      "text": "Github of old portfolio",
+      "class": "btn-secondary"
+    },
+    {
+      "url": "https://naveenpal.netlify.app/",
+      "text": "Visit Old porfolio",
+      "class": "btn-info"
+    }
+  ]
 tags: ['Web development',"astro"]
 ---
 
-Hi, this my my portfolio inspired by youtube which looks good (atleast I think so).
+Hi, this my portfolio inspired by youtube.
 <br>
-In December another summer vacation I checked my <a href="https://naveenpal.netlify.app/">old portfolio</a> and think to modify it but I was not happy with that it was looking very simple as i made it for learning <a href="https://astro.build/">astro</a> framework
+In December 2024 another summer vacation, I got an idea for my portfolio and decided to change my <a href="https://naveenpal.netlify.app/">old portfolio</a> and switch to portfolio which is unique and much interective and user friendly. I found youtube interface suitable for my portfolio and inspire by this I made a portfolio in which anyone can easily nevigates to any of my project.
+<br>
+I used astro framework for building my portfolio.

@@ -6,8 +6,7 @@ image:
     url: '/project/git.png'
     alt: 'git'
 pubDate: 2023-05-12
-link: 'https://naveen-pal.github.io/Drum-kit/'
-github: 'https://github.com/naveen-pal/clock'
+links: []
 tags: ['python',"git"]
 ---
 

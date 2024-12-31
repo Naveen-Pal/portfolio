@@ -7,6 +7,7 @@ image:
     url: "https://docs.astro.build/assets/arc.webp"
     alt: "Thumbnail of Astro arcs."
 pubDate: 2023-11-28
+links: []
 tags: ["hacking", "bug hunting"]
 ---
 

@@ -7,6 +7,7 @@ image:
     url: "/post/clab-access.png"
     alt: "Thumbnail of Astro arcs."
 pubDate: 2024-12-03
+links: []
 tags: ["Cybersecurity","computer"]
 ---
 

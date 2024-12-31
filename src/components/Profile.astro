@@ -1,0 +1,288 @@
+---
+// ProfileDropdown.astro
+---
+
+<div class="profile-dropdown">
+  <button 
+    id="profile-button"
+    class="profile-btn btn p-0 border-0"
+    aria-label="Profile Menu"
+  >
+    <div class="avatar-container">
+      <img 
+        src="/images/me.jpeg" 
+        alt="Naveen Pal" 
+        class="avatar-img"
+      />
+      <span class="status-indicator"></span>
+    </div>
+  </button>
+
+  <div id="dropdown-content" class="dropdown-menu shadow-sm d-none">
+    <!-- Rest of the content remains the same -->
+    <!-- Header Section -->
+    <div class="dropdown-header d-flex align-items-center gap-2 p-2">
+      <div class="avatar-container-lg">
+        <img 
+          src="/images/me.jpeg" 
+          alt="Naveen Pal" 
+          class="avatar-img-lg"
+        />
+      </div>
+      <div>
+        <h6 class="mb-0 fw-medium">Naveen Pal</h6>
+        <small class="text-muted">BTech CSE @ IIT Gandhinagar</small>
+        <div class="d-flex gap-2 mt-1">
+          <a href="mailto:23110216@iitgn.ac.in" class="btn-icon" title="Email">
+            <i class="fas fa-envelope"></i>
+          </a>
+          <a href="https://github.com/Naveen-Pal" class="btn-icon" title="GitHub">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="https://linkedin.com/in/naveenpal-" class="btn-icon" title="LinkedIn">
+            <i class="fab fa-linkedin"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="dropdown-divider my-1"></div>
+    <div class="px-2 py-1">
+      <div class="row g-2">
+        <div class="col-4">
+          <div class="stat-item">
+            <i class="fas fa-code-branch"></i>
+            <span>15+</span>
+            <small>Projects</small>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="stat-item">
+            <i class="fas fa-trophy"></i>
+            <span>20+</span>
+            <small>CTFs</small>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="stat-item">
+            <i class="fas fa-bug"></i>
+            <span>5+</span>
+            <small>Bounties</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Skills -->
+    <div class="dropdown-divider my-1"></div>
+    <div class="p-2">
+      <div class="skills-grid">
+        <span class="badge bg-light text-dark">Python</span>
+        <span class="badge bg-light text-dark">C/C++</span>
+        <span class="badge bg-light text-dark">Website Development</span>
+        <span class="badge bg-light text-dark">Cyber Security</span>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="dropdown-divider my-1"></div>
+    <div class="d-flex gap-2 p-2">
+      <a href="/portfolio" class="btn btn-light btn-sm w-50">
+        <i class="fas fa-laptop-code me-1"></i>Portfolio
+      </a>
+      <a href="/resume_naveen.pdf" class="btn btn-light btn-sm w-50">
+        <i class="fas fa-file-alt me-1"></i>Resume
+      </a>
+    </div>
+  </div>
+</div>
+
+<style>
+  .profile-dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  .avatar-container {
+    position: relative;
+    width: 32px;
+    height: 32px;
+  }
+
+  .avatar-container-lg {
+    position: relative;
+    width: 40px;
+    height: 40px;
+  }
+
+  .avatar-img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .avatar-img-lg {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .status-indicator {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 8px;
+    height: 8px;
+    background-color: #22c55e;
+    border-radius: 50%;
+    border: 2px solid white;
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    right: 0;
+    margin-top: 8px;
+    width: 250px;
+    border-radius: 8px;
+    z-index: 1000;
+  }
+
+  .btn-icon {
+    padding: 4px;
+    border-radius: 4px;
+    color: #6c757d;
+    transition: all 0.2s;
+    text-decoration: none;
+    font-size: 0.875rem;
+  }
+
+  .btn-icon:hover {
+    background-color: #f8f9fa;
+    color: #212529;
+  }
+
+  .stat-item {
+    text-align: center;
+    padding: 4px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+  }
+
+  .stat-item:hover {
+    background-color: #f8f9fa;
+  }
+
+  .stat-item i {
+    font-size: 0.875rem;
+    color: #6c757d;
+    margin-bottom: 2px;
+  }
+
+  .stat-item span {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+
+  .stat-item small {
+    display: block;
+    font-size: 0.75rem;
+    color: #6c757d;
+  }
+
+  .skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  /* Animation classes */
+  .show-menu {
+    display: block !important;
+    animation: slideDown 0.2s ease-out;
+  }
+
+  @keyframes slideDown {
+    0% {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 640px) {
+    .dropdown-menu {
+      position: fixed;
+      top: 60px;
+      right: 16px;
+      width: calc(100vw - 32px);
+      max-width: 250px;
+    }
+  }
+</style>
+
+<script>
+  // Wait for the document to be fully loaded
+  document.addEventListener('DOMContentLoaded', function() {
+    const profileButton = document.getElementById('profile-button');
+    const dropdownContent = document.getElementById('dropdown-content');
+    let isOpen = false;
+
+    if (!profileButton || !dropdownContent) return;
+
+    function toggleDropdown(e) {
+      e.stopPropagation();
+      isOpen = !isOpen;
+      
+      if (isOpen) {
+        dropdownContent.classList.remove('d-none');
+        dropdownContent.classList.add('show-menu');
+      } else {
+        closeDropdown();
+      }
+    }
+
+    function closeDropdown() {
+      isOpen = false;
+      dropdownContent.classList.remove('show-menu');
+      // Wait for animation to complete before hiding
+      setTimeout(() => {
+        if (!isOpen) { // Check again to prevent race conditions
+          dropdownContent.classList.add('d-none');
+        }
+      }, 200);
+    }
+
+    // Toggle dropdown on button click
+    profileButton.addEventListener('click', toggleDropdown);
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+      if (isOpen && !e.target.closest('.profile-dropdown')) {
+        closeDropdown();
+      }
+    });
+
+    // Handle touch events for mobile
+    let touchStartY = 0;
+    dropdownContent.addEventListener('touchstart', (e) => {
+      touchStartY = e.touches[0].clientY;
+    });
+
+    dropdownContent.addEventListener('touchmove', (e) => {
+      const touchY = e.touches[0].clientY;
+      const deltaY = touchY - touchStartY;
+      
+      if (deltaY > 30) {
+        closeDropdown();
+      }
+    });
+  });
+</script>

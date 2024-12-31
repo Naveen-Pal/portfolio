@@ -1,57 +1,48 @@
 ---
 import Terminal from "./Terminal.astro"
+import Profile from "./Profile.astro"
 ---
 <nav class="navbar navbar-expand-lg navbar-light fixed-top bg-white">
   <div class="container-fluid">
-    <!-- Sidebar Toggle Button -->
     <div class="d-flex align-items-center">
       <i class="fas fa-bars m-3" id="menu-icon" style="cursor: pointer;"></i>
       <a href="/">
         <img src="/images/Naveen Pal (1).png" alt="Logo" class="logo" style="height: 40px;">
       </a>
     </div>
-    <!-- Search Bar -->
-    <Terminal/>
-
-    <!-- 
+    
+    <!-- Wrap terminal and right icons in a flex container -->
       <div class="d-flex flex-grow-1 justify-content-center">
-        <div class="input-group">
-        <input type="text" class="form-control" placeholder="Type a command...">
-        <button class="btn btn-outline-secondary">
-          <i class="fa-solid fa-terminal"></i>
-        </button>
+        <Terminal/>
       </div>
-    </div> -->
-    <!-- Notification and User Icon -->
-    <div class="d-flex align-items-center">
-      <div class="position-relative me-md-5 me-2">
-        <i class="fas fa-bell" style="cursor: pointer; font-size: 25px;"></i>
-        <!-- Badge will be inserted here by JavaScript -->
+      
+      <div class="d-flex align-items-center ms-2">
+        <div class="position-relative me-3">
+          <i class="fas fa-bell" style="cursor: pointer; font-size: 25px;"></i>
+        </div>
+        <Profile/>
       </div>
-      <img src="/images/me.jpeg" alt="User" class="rounded-circle" style="height: 40px;">
-    </div>
   </div>
 </nav>
+
 <style>
+.container-fluid {
+  padding-right: 1rem;
+  padding-left: 1rem;
+}
+
+@media (max-width: 576px) {
+  .container-fluid {
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+  }
   
-  .input-group {
-    max-width: 50vw; /* Default max width */
-    width: 100%;      /* Make it responsive */
-    transition: opacity 0.3s ease-in-out;
+  .logo {
+    height: 32px !important;
   }
-
-  @media (max-width: 768px) {
-    .input-group {
-      max-width: 30vw; /* Adjust for smaller screens */
-    }
+  
+  #menu-icon {
+    margin: 0.5rem !important;
   }
-
-  @media (max-width: 576px) {
-    .form-control{
-      display: none;
-    }
-    .input-group {
-      max-width: 10vw;
-    }
-  }
+}
 </style>

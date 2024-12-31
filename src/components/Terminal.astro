@@ -32,10 +32,12 @@
 .terminal-dropdown {
   position: relative;
   width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 /* Hide default input on mobile */
-@media (max-width: 576px) {
+@media (max-width: 595px) {
   .terminal-input {
     display: none !important;
   }
@@ -46,7 +48,7 @@
   }
   
   .terminal-dropdown {
-    /* margin: 0 !important; */
+    margin: 0 !important; 
   }
 }
 
@@ -129,6 +131,7 @@
   outline: none;
   margin-left: 8px;
   position: relative; /* Add this */
+  caret-color: transparent;
 }
 
 
@@ -162,7 +165,7 @@
 
 .typed-cursor {
   position: absolute; /* Add this */
-  left: calc(8px + 17ch); /* Position after prompt spacing */
+  /* left: calc(8px + 17ch); Position after prompt spacing */
   animation: blink 1s infinite;
   color: #7aa2f7;
   pointer-events: none; /* Add this */
@@ -354,4 +357,42 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+// Get the cursor element
+const cursor = document.querySelector('.typed-cursor');
+
+// Function to update cursor position
+function updateCursorPosition() {
+  const input = document.getElementById('active-terminal-input');
+  const prompt = document.querySelector('.prompt');
+  
+  // Create a temporary span to measure text width
+  const measureSpan = document.createElement('span');
+  measureSpan.style.visibility = 'hidden';
+  measureSpan.style.position = 'absolute';
+  measureSpan.style.whiteSpace = 'pre';
+  measureSpan.style.font = window.getComputedStyle(input).font;
+  measureSpan.textContent = input.value.substring(0, input.selectionStart);
+  document.body.appendChild(measureSpan);
+  
+  // Calculate new position
+  const inputRect = input.getBoundingClientRect();
+  const promptWidth = prompt.getBoundingClientRect().width;
+  const textWidth = measureSpan.getBoundingClientRect().width;
+  
+  // Update cursor position
+  cursor.style.left = `${promptWidth + textWidth}px`;
+  
+  // Clean up
+  document.body.removeChild(measureSpan);
+}
+
+// Add event listeners for cursor position updates
+const input = document.getElementById('active-terminal-input');
+input.addEventListener('input', updateCursorPosition);
+input.addEventListener('keydown', updateCursorPosition);
+input.addEventListener('keyup', updateCursorPosition);
+input.addEventListener('click', updateCursorPosition);
+
+// Initial cursor position
+updateCursorPosition();
 </script>

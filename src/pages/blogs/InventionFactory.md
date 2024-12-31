@@ -7,6 +7,7 @@ author: 'Naveen Pal'
 image:
     url: '/post/if.png'
     alt: 'Invention Factory'
+links: []
 tags: ['problem solving',"experience"]
 ---
 

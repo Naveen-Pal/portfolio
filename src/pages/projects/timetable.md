@@ -6,7 +6,18 @@ image:
     url: '/project/timetable.png'
     alt: 'timetable'
 pubDate: 2023-05-12
-link: 'https://naveen-pal.github.io/timetable_2sem/'
-github: 'https://github.com/naveen-pal/timetable_2sem'
+links: [
+    {
+      "url": "https://naveen-pal.github.io/timetable_2sem/",
+      "text": "Github of this portfolio",
+      "class": "btn-primary"
+    },
+    {
+      "url": "https://github.com/naveen-pal/timetable_2sem",
+      "text": "Github of old portfolio",
+      "class": "btn-secondary"
+    },
+  ]
+
 tags: ['Web development',"flask","python"]
 ---
