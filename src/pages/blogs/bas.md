@@ -4,8 +4,8 @@ title: BAS portal admin page unauthorised access
 author: Naveen Pal
 description: "gaining access to admin panel is easy"
 image:
-    url: "https://docs.astro.build/assets/arc.webp"
-    alt: "Thumbnail of Astro arcs."
+    url: "/post/bas-admin-page.png"
+    alt: "bas admin page."
 pubDate: 2023-11-28
 links: []
 tags: ["hacking", "bug hunting"]

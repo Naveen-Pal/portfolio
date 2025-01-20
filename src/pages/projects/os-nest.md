@@ -8,20 +8,15 @@ image:
 pubDate: 2024-12-18
 links: [
     {
-      "url": "https://github.com/portfolio",
-      "text": "Github of this portfolio",
+      "url": "https://github.com/OWASP/Nest",
+      "text": "Github",
       "class": "btn-primary"
     },
     {
-      "url": "https://github.com/new-astro",
-      "text": "Github of old portfolio",
+      "url": "https://github.com/OWASP/Nest/pulls?q=is%3Apr+author%3ANaveen-Pal+is%3Amerged",
+      "text": "Merged Pull Request",
       "class": "btn-secondary"
     },
-    {
-      "url": "https://naveenpal.netlify.app/",
-      "text": "Visit Old porfolio",
-      "class": "btn-info"
-    }
   ]
 tags: ["security","open source","python"]
 ---
