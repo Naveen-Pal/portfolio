@@ -11,15 +11,15 @@ links: []
 tags: ["web", "security","computer"]
 ---
 
-# Tor
+### Tor
 Tor is browser used to connect with the Dark web securily. 
-
-Dark web is place in internet mostly used for illegal purposes
-## Hiddien wiki
+### Dark web
+The dark web is a hidden part of the internet that requires special software like Tor to access, where users can browse anonymously. It is often used for privacy-focused communication and illegal activities like black markets.
+### Hiddien wiki
 If you don't what you should do after connect to tor. Just go to the hidden wiki. where you will find a lots of drak web url (.onion) to explore more. 
 
-## Carding
-People makes money by buying credit card information of someone else. Yeah it's prety bad but no one can do anything it prevent that.
+### Carding
+People makes money by buying credit card information of someone else. These stolen details are obtained through data breaches, phishing, or malware and sold on dark web marketplaces.
 
-## Chating
+### Chating
 Whenever to talk someone on the dark web why they are there. I found most of the people are there for money or illegal purposes. So it's always better to not trust them.

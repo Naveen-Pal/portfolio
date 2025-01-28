@@ -7,7 +7,13 @@ image:
     url: "https://docs.astro.build/default-og-image.png"
     alt: "The word astro against an illustration of planets and stars."
 pubDate: 2024-11-29
-links: []
+links: [
+        {
+      "url": "https://github.com/Naveen-Pal/text-game",
+      "text": "View on Github",
+      "class": "btn-primary"
+    }
+]
 tags: ["web", "security","computer"]
 ---
 

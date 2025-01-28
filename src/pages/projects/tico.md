@@ -6,7 +6,14 @@ image:
     url: '/project/git.png'
     alt: 'git'
 pubDate: 2023-05-12
-links: []
+links: [
+    {
+      "url": "https://github.com/Naveen-Pal/Tico-A_Version_Control_System",
+      "text": "View on Github",
+      "class": "btn-primary"
+    }
+]
+
 tags: ['python',"git"]
 ---
 

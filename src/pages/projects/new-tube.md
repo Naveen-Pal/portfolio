@@ -8,19 +8,19 @@ image:
     alt: 'issuetracker'
 links: [
     {
-      "url": "https://github.com/portfolio",
+      "url": "https://github.com/Naveen-Pal/portfolio",
       "text": "Github of this portfolio",
       "class": "btn-primary"
     },
     {
-      "url": "https://github.com/new-astro",
+      "url": "https://github.com/Naveen-Pal/astro-web",
       "text": "Github of old portfolio",
-      "class": "btn-secondary"
+      "class": "btn-primary"
     },
     {
       "url": "https://naveenpal.netlify.app/",
       "text": "Visit Old porfolio",
-      "class": "btn-info"
+      "class": "btn-primary"
     }
   ]
 tags: ['Web development',"astro"]

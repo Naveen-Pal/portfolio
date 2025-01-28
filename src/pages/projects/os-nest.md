@@ -24,6 +24,6 @@ tags: ["security","open source","python"]
 # Nest
 Gateway to OWASP
 <br>
-Nest is an website build to help people nevigate the owasp organisations easily. Technology used were react, django
+Nest is an website build to help people nevigate the owasp organisations easily. Technology used are react, django
 
-I am active contributor of this repository. I generally work on the backend part which is 
+I am active contributor of this repository. See my merged pull request from above button.

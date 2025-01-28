@@ -8,7 +8,7 @@ image:
     alt: "bas admin page."
 pubDate: 2023-11-28
 links: []
-tags: ["hacking", "bug hunting"]
+tags: ["Cybersecurity", "bug hunting"]
 ---
 
 <!-- I have hacked the admin page of BAS portal
