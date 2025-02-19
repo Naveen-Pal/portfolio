@@ -165,7 +165,7 @@
 
 .typed-cursor {
   position: absolute; /* Add this */
-  /* left: calc(8px + 17ch); Position after prompt spacing */
+  left: calc(8px + 17ch); /* Position after prompt spacing */
   animation: blink 1s infinite;
   color: #7aa2f7;
   pointer-events: none; /* Add this */
@@ -276,10 +276,12 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   function handleCommand(cmd) {
-    const [command, ...args] = cmd.trim().split(' ');
+    const normalizedCmd = cmd.replace(/\/n/g, '\n');
+    const [command, ...rest] = normalizedCmd.trim().split(' ');
     const handler = commands[command];
     if (handler) {
-      return handler(args);
+      const rawOutput = handler(rest);
+      return rawOutput.toString().replace(/\/n/g, '\n');
     }
     return `Command not found: ${command}. Type 'help' for available commands.`;
   }
@@ -324,10 +326,13 @@ document.addEventListener('DOMContentLoaded', () => {
       cmdLine.innerHTML = `<span class="prompt">guest@portfolio:<span class="path">~</span>$ </span>${cmd}`;
       terminalRows.appendChild(cmdLine);
 
+      // Process command
+      const commandOutput = handleCommand(cmd);
+
       // Add output
       const output = document.createElement('div');
       output.classList.add('output');
-      output.textContent = handleCommand(cmd);
+      output.textContent = commandOutput;
       terminalRows.appendChild(output);
 
       // Clear input and scroll to bottom
@@ -344,7 +349,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
-// Get the cursor element
 const cursor = document.querySelector('.typed-cursor');
 
 // Function to update cursor position
