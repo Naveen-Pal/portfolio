@@ -24,12 +24,10 @@ I opened this port on my firefox and found an admin login portal of Smart Office
 
 Later on this vulnerability got fixed and they removed the service from the 81 port.
 
-What I got after reporting this vulnerbility is not just a "Thank You" reply but the motivation to always keep trying, learning, hunting bugs and reporting more bugs. The feeling of reporting first bug was so amazing.
+After reporting this vulnerbility, I got motivation to always keep trying, learning, hunting bugs and reporting more bugs. The feeling of reporting first bug was so amazing.
 Below is the admin page of BAS that I had access to.
 
 <img src="/post/bas-admin-page.png" width="700"/>
-
-This was just the beginning. I started finding new bugs on different IITGN sites
 
 Bye,<br>
 Happy Hacking
