@@ -1,33 +1,46 @@
 ---
 layout: ../../layouts/post.astro
-title: 'Youtube Inspired Portfolio'
-description: 'Portfolio website, yes the one you are using currently'
+title: 'YouTube-Inspired Portfolio'
+description: 'A modern portfolio website with YouTube-like interface for enhanced user experience'
 pubDate: 2023-05-12
 image: 
     url: '/project/portfolio.png'
-    alt: 'issuetracker'
+    alt: 'Portfolio Website Screenshot'
 links: [
     {
       "url": "https://github.com/Naveen-Pal/portfolio",
-      "text": "Github of this portfolio",
+      "text": "Current Portfolio Repository",
       "class": "btn-primary"
     },
     {
       "url": "https://github.com/Naveen-Pal/astro-web",
-      "text": "Github of old portfolio",
-      "class": "btn-primary"
+      "text": "Previous Portfolio Repository",
+      "class": "btn-secondary"
     },
     {
       "url": "https://naveenpal.netlify.app/",
-      "text": "Visit Old porfolio",
-      "class": "btn-primary"
+      "text": "Visit Previous Portfolio",
+      "class": "btn-info"
     }
   ]
-tags: ['Web development',"astro"]
+tags: ['Web Development', 'Astro', 'UI/UX Design']
 ---
 
-Hi, this my portfolio inspired by youtube.
-<br>
-In December 2024 another summer vacation, I got an idea for my portfolio and decided to change my <a href="https://naveenpal.netlify.app/">old portfolio</a> and switch to portfolio which is unique and much interective and user friendly. I found youtube interface suitable for my portfolio and inspire by this I made a portfolio in which anyone can easily nevigates to any of my project.
-<br>
-I used astro framework for building my portfolio.
+## Project Overview
+
+Welcome to my portfolio website, inspired by YouTube's intuitive interface! In December 2024, I embarked on a journey to redesign my [previous portfolio](https://naveenpal.netlify.app/) with a focus on creating a unique, interactive, and user-friendly experience.
+
+## Design Philosophy
+
+The YouTube-inspired interface was chosen for its familiarity and excellent navigation patterns. This design approach makes it easy for visitors to explore my projects and professional journey in an engaging way.
+
+## Technical Implementation
+
+Built with the Astro framework, this portfolio combines:
+- Modern web development practices
+- Optimized performance
+- Intuitive navigation
+- Responsive design
+- Interactive elements
+
+The result is a portfolio that stands out while maintaining professional functionality and ease of use.

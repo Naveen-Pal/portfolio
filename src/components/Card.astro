@@ -4,7 +4,7 @@ const { title, pubDate, description, image, tags = [] } = Astro.props;
 
 <div class="post-card d-flex flex-column">
   <div class="thumbnail">
-    <img src={image.url} alt={image.alt} class="card-img-top rounded border shadow-sm" />
+    <img src={image?.url} alt={image?.alt} class="card-img-top rounded border shadow-sm" />
   </div>
   <div class="d-flex mt-1 px-3 align-items-start">
     <!-- User Avatar -->

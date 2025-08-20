@@ -1,42 +1,63 @@
 ---
 layout: ../../layouts/post.astro
-title: 'My Internship at the Invention Factory, IIT Jammu'
+title: 'Innovation Journey: My Experience at IIT Jammu Invention Factory'
 pubDate: 2023-07-20
-description: 'intense innovation and teamwork, transforming challenges into groundbreaking solutions for elderly mobility.'
+description: 'A transformative internship experience focused on innovation, teamwork, and developing mobility solutions for the elderly'
 author: 'Naveen Pal'
 image:
     url: '/post/if.png'
-    alt: 'Invention Factory'
+    alt: 'Invention Factory Program at IIT Jammu'
 links: []
-tags: ['problem solving',"experience"]
+tags: ['Product Development', 'Problem Solving']
 ---
 
 
-This summer(june-july, 2024), I embarked on a journey not just across India but into the depths of innovation and creativity at the Invention Factory, held at IIT Jammu. As an enthusiastic traveler, the allure of exploring new places was only a bonus on top of the exciting prospects the program promised.
+I was super excited to head to Jammu for the Invention Factory. I love traveling, and this time it was just me, my backpack, and the long route from Gwalior to Jammu.
 
-The Adventure Begins
-My journey from Gwalior to Jammu aboard the Jhelum Express was an odyssey in its own right, characterized by a staggering 13-hour delay. This unexpected downtime, however, turned into a delightful opportunity to connect with fellow travelers, including playful children and eventually a fellow participant of the Invention Factory. Discovering we were headed to the same destination, we decided to journey onward together from the Jammu station after the train's late-night arrival.
+Sitting alone on a late train for almost a day can get boring. Luckily, I spotted a few kids playing around me, and since I’m naturally good with kids, I ended up spending some fun time with them. Halfway through the journey, one of the other participants messaged me saying he was on the same train. We decided to stick together once we got to Jammu. Since it was already midnight and no drivers were available, we crashed in the waiting room for a couple of hours before hiring a cab to IIT Jammu.
 
-Diving into Innovation
-Upon arriving at IIT Jammu, we were swiftly introduced to the rigors and resources of the Invention Factory by TL and Navneet Sir. Tasked with creating an "overwhelming invention," my team and I plunged into the ideation process, our minds melding over sketches and potential innovations as we bonded over shared meals and late-night chats about college life and beyond.
+---
 
-Creating Our Prototype
-The focus of our project was a mobility-assisting device designed to aid the elderly in transitioning between sitting and standing positions. This sophisticated device integrated an electric linear actuator and a harness system into a walker, emphasizing safety, ease of use, and independence for its users. The design process was iterative and intense, fueled by constructive critiques from distinguished mentors and peers.
+## First Days at IF
 
-Challenges and Growth
-Our first presentation didn't go as planned; the feedback was tough but fair, highlighting the need for significant improvements in usability and comfort. This pivotal moment was both a setback and a catalyst for growth, pushing us to refine our prototype through continuous feedback and relentless redesigning.
+The first day was all about orientation. We met Navneet sir, our TLs, and the other participants. Everyone seemed so talented and confident in their fields that it instantly felt inspiring to be among them. We were divided into groups and given a quirky challenge: to design an “unnecessary invention.” It was a fun ice-breaker, and while working late into the night, we got to know each other better.
 
-Cultural Immersion and Team Bonding
-Our journey wasn't all work; it included excursions around Jammu, from local markets to historical temples, enriching our experience and fostering team bonding. Meetings with the founders, Professors Eric Lima and Alan Wolf, via Zoom, further deepened our understanding of prototyping and patenting, adding layers to our practical knowledge.
+That night was one of my favorites walking around the campus, laughing, talking, sharing stories about our colleges, and bonding over random topics. It had been a long time since I felt that kind of energy with people.
 
-The Final Stretch
-As the program neared its conclusion, the intensity increased. The days leading up to the final presentation were a blur of activity—refining our prototype, rehearsing our pitch, and navigating the nerves of showcasing our work. Despite the pressure, the support from our mentors and the camaraderie within our team provided the strength to persevere.
+Our tempory team me, Supragya, Mayur, and Varun started brainstorming ideas. After a lot of back and forth. We decide to make a cycle extension for Trolley bags. Final prototype was really cool, more useful than we thought.
 
-Reflections on a Journey of Innovation
-The Invention Factory was more than an internship; it was a transformative experience that tested and expanded my limits. It taught me not just about mechanical design and prototyping, but about resilience, teamwork, and the relentless pursuit of innovation.
+---
 
-A heartfelt thank you to everyone at the Maker Bhavan Foundation and IIT Jammu for orchestrating such a fantastic program. Special thanks to my teammates and every mentor and staff member who guided us through this unforgettable journey.
+## Building Together
 
-Looking Ahead
-The Invention Factory has left an indelible mark on me, shaping my perspectives and aspirations.
-Armed with a new set of skills, incredible memories, and lasting friendships, I look forward to what the future holds. The Invention Factory wasn't just a chapter in my academic career; it was a milestone in my personal and professional growth.
+Soon, we shifted gears from ice-breakers to real work. Me with my teammate Prabhat (IIT Hyderabad), We chose a project close to our hearts: designing a prototype to help elderly people sit and stand without assistance.
+
+The process wasn’t smooth. During our first pitch, professors and evaluators pointed out that while the problem we were tackling was important, our design wasn’t convincing in terms of usability and comfort. It stung a little, but the feedback was valuable. We went back, brainstormed again, changed our design, and slowly started shaping something better.
+
+Every Thursday, we pitched our progress. And every Thursday, we were grilled by professors, doctors, engineers, and guest evaluators. It was tough but incredibly rewarding. With every round, we learned something new not just about prototyping, but about presentation, teamwork, and communication.
+
+Along the way, there were so many little memories from roaming in local markets and visiting temples, to late-night basket ball games, pizza parties, and random discussions about life, tech, and dreams.
+
+---
+
+## The Grind
+
+The actual work was intense. We spent hours in the mechanical workshop, cutting, welding, drilling, and fixing mistakes (sometimes redoing parts multiple times). At one point, we had to switch materials, rethink hinges, and almost rebuild parts of the frame. It was frustrating, but slowly the prototype took shape.
+
+We also worked on the patent side like writing descriptions, filling forms, making technical drawings, and ensuring our design was unique. Between building, filing, and constant feedback, the days just flew by.
+
+---
+
+## The Grand Finale
+
+The final week was all about polishing. We painted the prototype, shot videos of it in action, rehearsed our script, and practiced our presentation again and again. By then, our prototype was completely functional.
+
+On the presentation day, I woke up nervous but excited. Standing in front of the jury with our prototype set up, explaining our invention, and answering their questions. We had put in weeks of effort, sleepless nights, and countless reworks and it all came together in that moment.
+
+---
+
+## Looking Back
+
+The Invention Factory wasn’t just about building a prototype. It was about friendships, laughter, late-night discussions, pizza after long days, and the joy of creating something that could make a difference.
+
+It was one of the best experiences of my life a mix of travel adventure, learning, struggle, creativity, and bonding with brilliant people from across the country.

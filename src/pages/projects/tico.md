@@ -1,20 +1,20 @@
 ---
 layout: ../../layouts/post.astro
-title: 'Tico(A Git Clone)'
-description: 'Tico is clone of git (command line) made for WOC 2.0 '
+title: 'Tico: A Git Clone Implementation'
+description: 'A command-line version control system inspired by Git, developed for Winter of Code 2.0'
 image: 
     url: '/project/git.png'
-    alt: 'git'
+    alt: 'Tico Version Control System'
 pubDate: 2023-05-12
 links: [
     {
       "url": "https://github.com/Naveen-Pal/Tico-A_Version_Control_System",
-      "text": "View on Github",
-      "class": "btn-secondary"
+      "text": "View Source Code",
+      "class": "btn-primary"
     },
     {
       "url": "https://youtu.be/A4JXYHFW7FM",
-      "text": "video demostration",
+      "text": "Video Demonstration",
       "class": "btn-secondary"
     }
 ]

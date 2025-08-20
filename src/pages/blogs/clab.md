@@ -1,51 +1,69 @@
 ---
 layout: ../../layouts/post.astro
-title: Computer labs of IITGN is vulnerable to remote access!!
+title: 'Discovering and Reporting Security Vulnerabilities in IITGN Computer Labs'
 author: Naveen Pal
-description: "How I Discovered a Remote Access Vulnerability in IITGN's Computer Lab"
+description: 'A responsible disclosure of remote access vulnerabilities found in IITGN computer lab systems'
 image:
     url: "/post/clab-access.png"
-    alt: "Thumbnail of Astro arcs."
+    alt: "Remote Access Demonstration Screenshot"
 pubDate: 2024-12-03
 links: []
-tags: ["Cybersecurity","computer"]
+tags: ["Cybersecurity"]
 ---
 
-One day sitting in the computer lab. I don't no what I was doing but I found Nomachine is installed in their system googling about NoMachine (yes, most powerfull hacking skill is Googling :). I find out NoMachine is used for remote desktop and runs on port 4000 with nx protocol.
+## Initial Discovery
 
-Now I know what to do I install Nomachine in my laptop and put the IP of lab computer and try to connect it. 
-<br>
-<!-- 
-<img src="/post/clab-set.png" width="500"/>
-<br> -->
-<div class="w-100 text-center my-4">
-    <img src="/post/clab-set.png" alt="Computer lab setup" class="img-fluid shadow-sm"style="width: 80%;"/>
-    <p class="text-center text-muted small mt-2">NoMachine connection information </p>
-</div>
+During a regular session in the computer lab, I noticed NoMachine installed on the systems. After researching the software (yes, Google is every security researcher's best friend 😉), I learned that NoMachine is a remote desktop solution operating on port 4000 using the NX protocol.
 
+## Investigation Process
 
-It was asking for username and password. I simple give it the default credentials of student and gain access.
-<!-- ![alt text](image.png) -->
+### Remote Access Vulnerability
 
-<br>
-<div class="w-100 text-center my-4">
-    <img src="/post/clab-login.png" alt="Computer lab setup" class="img-fluid shadow-sm"style="width: 80%;"/>
-    <p class="text-center text-muted small mt-2">Login by student Credentials in Nomachine </p>
-</div>
+1. **Initial Setup**
+   - Installed NoMachine on my laptop
+   - Attempted connection to lab computer's IP
+   
+2. **Authentication Test**
+   ![NoMachine connection information](/post/clab-set.png)
+   - System prompted for credentials
+   - Default student credentials were accepted
+   
+3. **Successful Access**
+   ![Login by student Credentials in NoMachine](/post/clab-login.png)
+   - Gained non-administrative remote access
+   - Full user-level control achieved
+   
+![Remote Access Demonstration](/post/clab-access.png)
 
-Fortunately It connected successfully and I was able to do everything on the lab computer remotely but I don't have admin level previleges althrough we can use their high resources at the comfort of hostel. What do you mean we can also cheat using this during lab exam, This was my first thought but professor shutdowns the connections during lab exams.
-<div class="w-100 text-center my-4">
-    <img src="/post/clab-access.png" alt="Computer lab setup" class="img-fluid shadow-sm"style="width: 80%;"/>
-    <p class="text-center text-muted small mt-2">Got remote access to the Computer</p>
-</div>
-There was also another vulnerability by which anyone can get access to systems files and directories through [SMB](https://www.upguard.com/blog/smb-port). 
-Credites to <a href="https://github.com/cpatel321" target="_blank" rel="noopener noreferrer">Chandrabhan Patel</a>
-for finding this Remote file inclusion vulnerability.
-<div class="w-100 text-center my-4">
-    <img src="/post/clab-smb.png" alt="Computer lab setup" class="img-fluid shadow-sm"style="width: 80%;"/>
-    <!-- <p class="text-center text-muted small mt-2">Got remote access to the Computer</p> -->
-</div>
-Unfortunately or fortunately after reporting this issue it was resolved by the ISTF. 
+## Additional Findings
 
-<br>
-Happy Hacking
+### SMB Vulnerability
+
+A second vulnerability was discovered involving unrestricted access to system files through SMB ([Server Message Block](https://www.upguard.com/blog/smb-port)) protocol.
+
+Credit for this discovery goes to [Chandrabhan Patel](https://github.com/cpatel321), who identified the Remote File Inclusion vulnerability.
+
+![SMB Access Demonstration](/post/clab-smb.png)
+
+## Responsible Disclosure
+
+Both vulnerabilities were promptly reported to the IT Security Task Force (ISTF):
+- Issues were acknowledged and verified
+- Remediation measures were implemented
+- Systems are now secured against these vulnerabilities
+
+## Security Considerations
+
+> "Could this be exploited during lab exams?"
+
+While this was a natural concern, the faculty already had preventive measures in place, including disabling external connections during examinations.
+
+## Conclusion
+
+This experience highlights the importance of:
+- Regular security audits
+- Proper system configuration
+- Prompt vulnerability reporting
+- Responsible disclosure practices
+
+Happy (Ethical) Hacking!

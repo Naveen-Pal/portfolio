@@ -1,14 +1,14 @@
 ---
 layout: ../../layouts/post.astro
-title: My NDA SSB
+title: 'My Journey Through NDA SSB: A Personal Experience'
 author: Naveen Pal
-description: "My whole NDA-SSB experience"
+description: 'A detailed account of my five-day Service Selection Board experience at the Air Force Selection Center, Gandhinagar'
 pubDate: 2022-07-15
 image:
     url: '/post/nda.jpg'
-    alt: 'The full Astro logo.'
+    alt: 'NDA SSB Experience'
 links: []
-tags: ['experience']
+tags: ['Life Experience', 'Leadership']
 ---
 
 # NDA SSB Airforce in Gandhinagar

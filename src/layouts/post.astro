@@ -3,10 +3,29 @@ import RelatedPosts from "../components/RelatedPost.astro";
 import Layout from "./Layout.astro";
 import Tag from "../components/Tag.astro";
 
+interface Post {
+  url: string;
+  frontmatter: {
+    title: string;
+    description: string;
+    pubDate: string;
+    image?: {
+      url: string;
+      alt?: string;
+    };
+    tags?: string[];
+    links?: Array<{
+      url: string;
+      text: string;
+      class?: string;
+    }>;
+  };
+}
+
 const { frontmatter } = Astro.props;
-const projects = await Astro.glob("../pages/projects/*.md");
-const blogs = await Astro.glob("../pages/blogs/*.md");
-const allPosts = [...projects, ...blogs];
+const projects = await import.meta.glob<Post>("../pages/projects/*.md", { eager: true });
+const blogs = await import.meta.glob<Post>("../pages/blogs/*.md", { eager: true });
+const allPosts = [...Object.values(projects), ...Object.values(blogs)];
 ---
 
 <Layout>
@@ -31,25 +50,29 @@ const allPosts = [...projects, ...blogs];
           {
             frontmatter.tags && frontmatter.tags.length > 0 && (
               <div class="post-tags mb-3">
-                {frontmatter.tags.map((tag) => (
+                {frontmatter.tags.map((tag: string) => (
                   <span class="badge bg-secondary me-2">{tag}</span>
                 ))}
               </div>
             )
           }
-        <div class="d-flex flex-column flex-sm-row gap-2 mb-3">
-            {frontmatter.links.map((link) => (
-            <a
-                href={link.url}
-                class={`btn ${link.class} w-10 w-sm-auto`}
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                {link.text}
-            </a>
-            ))}
-        </div>
-        
+
+          {
+            frontmatter.links && frontmatter.links.length > 0 && (
+              <div class="d-flex flex-column flex-sm-row gap-2 mb-3">
+                {frontmatter.links.map((link: { url: string; text: string; class?: string }) => (
+                  <a
+                    href={link.url}
+                    class={`btn ${link.class || 'btn-primary'} w-10 w-sm-auto`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {link.text}
+                  </a>
+                ))}
+              </div>
+            )
+          }
 
           <article class="markdown-content p-3">
             <p class="text-muted mb-2 small">
@@ -75,11 +98,9 @@ const allPosts = [...projects, ...blogs];
                   return (
                     <div
                       class="tags-container"
-                      data-tags={
-                        frontmatter.tags ? frontmatter.tags.join(",") : ""
-                      }
+                      data-tags={frontmatter.tags ? frontmatter.tags.join(",") : ""}
                     >
-                      <a href={url} key={url} class="mb-2">
+                      <a href={url} class="mb-2">
                         <RelatedPosts {...frontmatter} />
                       </a>
                     </div>
@@ -158,6 +179,9 @@ const allPosts = [...projects, ...blogs];
   document.addEventListener("DOMContentLoaded", () => {
     const tagButtons = document.querySelectorAll(".tags-container button");
     const allPostsContainer = document.querySelector(".all-posts-container");
+    
+    if (!allPostsContainer) return;
+    
     const allPosts = allPostsContainer.querySelectorAll(".tags-container");
 
     tagButtons.forEach((button) => {
@@ -178,10 +202,10 @@ const allPosts = [...projects, ...blogs];
           const cardTags = cardTagsAttr ? cardTagsAttr.split(",") : [];
 
           // Determine visibility
-          if (selectedTag === "All" || cardTags.includes(selectedTag)) {
-            postContainer.style.display = "block";
+          if (selectedTag === "All" || (selectedTag && cardTags.includes(selectedTag))) {
+            (postContainer as HTMLElement).style.display = "block";
           } else {
-            postContainer.style.display = "none";
+            (postContainer as HTMLElement).style.display = "none";
           }
         });
       });

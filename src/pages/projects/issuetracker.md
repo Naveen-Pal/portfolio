@@ -1,29 +1,42 @@
 ---
 layout: ../../layouts/post.astro
 title: 'Issue Tracker'
-description: 'Description for project three.'
+description: 'A comprehensive issue tracking system inspired by IITGN Maintenance Portal'
 pubDate: 2023-05-12
 image: 
     url: '/project/issuetracker.png'
-    alt: 'issuetracker'
+    alt: 'Issue Tracker Dashboard'
 links: [
     {
       "url": "https://github.com/Naveen-Pal/issue-tracker",
-      "text": "View on Github",
+      "text": "View on GitHub",
       "class": "btn-primary"
     }
   ]
-tags: ['Web development',"flask","mysql"]
+tags: ['Web Development', 'Flask', 'MySQL', 'PHP']
 ---
 
-### Metis
-This project "Issue Tracker" is a metis summer project which aim to boost developing skill.
-<br>
-In this project, I made a webiste which keep track of the issue similar to the <a href="https://maintenance.iitgn.ac.in">Maintenance portal</a>. Me and my Teammate Lakshya worked on the making the user friendly interface with the functionally of like showing issue status user, a admin Dashboard to manage all the request and update their status. We make its 2 versions one made with php and another with flask as backend.
+## Project Overview
 
-### Technology
-Technology used were:
-<br>
-Backend: flask, php, mysql
-<br>
-Frontend: html, css, js
+The Issue Tracker is a Metis summer project designed to enhance development skills through practical application. This project implements a comprehensive issue tracking system similar to the [IITGN Maintenance Portal](https://maintenance.iitgn.ac.in).
+
+## Features and Implementation
+
+Working alongside my teammate Lakshya, we developed a user-friendly interface with several key features:
+- Real-time issue status tracking for users
+- Administrative dashboard for request management
+- Status update functionality
+- Two separate implementations: PHP and Flask versions
+
+## Technical Stack
+
+### Backend
+- Primary Technologies: Flask and PHP
+- Database: MySQL
+
+### Frontend
+- HTML5
+- CSS3
+- JavaScript
+
+The dual implementation in both PHP and Flask provided valuable insights into different backend architectures while maintaining consistent functionality.
