@@ -1,34 +1,16 @@
-<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg">
-  <!-- Define a radial gradient for a contrasting background -->
-  <defs>
-    <radialGradient id="radialBlueGradient" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#00bfff" />
-      <stop offset="100%" stop-color="#1e90ff" />
-    </radialGradient>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <!-- Background rounded square -->
+  <rect width="100" height="100" rx="18" fill="#0f0f1a"/>
 
-    <!-- Define a drop shadow filter to enhance contrast and depth -->
-    <filter id="dropShadow">
-      <feDropShadow dx="0" dy="4" stdDeviation="2" flood-color="#000" flood-opacity="1.5"/>
-    </filter>
-  </defs>
+  <!-- Left bracket < -->
+  <text x="7" y="62" font-family="'Segoe UI', system-ui, sans-serif" font-weight="700" font-size="38" fill="#6366f1">&lt;</text>
 
-  <!-- Background rectangle using the radial gradient -->
-  <rect width="100%" height="100%" fill="url(#radialBlueGradient)" />
+  <!-- NP letters -->
+  <text x="27" y="62" font-family="'Segoe UI', system-ui, sans-serif" font-weight="800" font-size="36" fill="#ffffff">NP</text>
 
-  <!-- Stylized "N" with a white fill, dark stroke, and drop shadow -->
-  <text
-    x="50%"
-    y="50%"
-    font-family="Arial"
-    font-size="180"
-    fill="#ffffff"
-    stroke="#00008b"
-    stroke-width="4"
-    text-anchor="middle"
-    alignment-baseline="middle"
-    font-weight="bold"
-    filter="url(#dropShadow)"
-  >
-    N
-  </text>
+  <!-- Right bracket > -->
+  <text x="77" y="62" font-family="'Segoe UI', system-ui, sans-serif" font-weight="700" font-size="38" fill="#6366f1">&gt;</text>
+
+  <!-- Terminal cursor underscore -->
+  <rect x="46" y="68" width="18" height="3.5" rx="1.5" fill="#6366f1"/>
 </svg>
