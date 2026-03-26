@@ -25,12 +25,9 @@ const posts = await Astro.glob('../pages/posts/*.md');
 
 <style>
 .card-grid {
-    /* justify-content: center; */
-    /* align-content: center; */
-    /* align-items: center; */
     display: grid;
     margin: auto;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
     gap: 20px;
     padding: 20px;
 }
