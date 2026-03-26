@@ -23,9 +23,8 @@ interface Post {
 }
 
 const { frontmatter } = Astro.props;
-const projects = await import.meta.glob<Post>("../pages/projects/*.md", { eager: true });
-const blogs = await import.meta.glob<Post>("../pages/blogs/*.md", { eager: true });
-const allPosts = [...Object.values(projects), ...Object.values(blogs)];
+const allPostFiles = await import.meta.glob<Post>("../pages/posts/*.md", { eager: true });
+const allPosts = Object.values(allPostFiles);
 ---
 
 <Layout>
@@ -84,31 +83,32 @@ const allPosts = [...Object.values(projects), ...Object.values(blogs)];
       </div>
 
       <div class="col-12 col-lg-4 order-2 order-lg-2 mb-3 side-re">
-        <div class="sticky-top">
-          <div class="mb-3 px-3 px-md-0 tag-container">
+        <div class="sticky-top" style="top: calc(var(--nav-h) + 1rem)">
+
+          <div class="mb-4 tag-container">
             <Tag />
           </div>
 
-          <div class="card-body p-2">
-            <h5>Other Posts</h5>
+          <div class="related-sidebar">
+            <div class="related-sidebar-header">
+              <span>Other Posts</span>
+              <span class="related-count">{allPosts.length}</span>
+            </div>
             <div class="all-posts-container">
-              {
-                allPosts.map((post) => {
-                  const { url, frontmatter } = post;
-                  return (
-                    <div
-                      class="tags-container"
-                      data-tags={frontmatter.tags ? frontmatter.tags.join(",") : ""}
-                    >
-                      <a href={url} class="mb-2">
-                        <RelatedPosts {...frontmatter} />
-                      </a>
-                    </div>
-                  );
-                })
-              }
+              {allPosts.map((post) => (
+                <div
+                  class="tags-container"
+                  data-tags={post.frontmatter.tags?.join(",") ?? ""}
+                >
+                  <a href={post.url}>
+                    <RelatedPosts {...post.frontmatter} />
+                  </a>
+                  <div class="rp-divider"></div>
+                </div>
+              ))}
             </div>
           </div>
+
         </div>
       </div>
     </div>
@@ -116,13 +116,59 @@ const allPosts = [...Object.values(projects), ...Object.values(blogs)];
 </Layout>
 
 <style>
-  .side-re {
-    max-width: 90vw;
-  }
-  .post-image-wrapper {
-    width: 100%;
+  .side-re { max-width: 90vw; }
+
+  /* ── Related Posts Sidebar ───────────────────────────────── */
+  .related-sidebar {
+    border: 1px solid var(--border);
+    border-radius: 10px;
     overflow: hidden;
+    background: var(--bg);
   }
+
+  .related-sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: 0.02em;
+  }
+
+  .related-count {
+    background: #e0e7ff;
+    color: #4338ca;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 1px 8px;
+    border-radius: 12px;
+  }
+
+  .all-posts-container {
+    max-height: 520px;
+    overflow-y: auto;
+    padding: 4px 0;
+  }
+
+  .all-posts-container::-webkit-scrollbar { width: 4px; }
+  .all-posts-container::-webkit-scrollbar-track { background: transparent; }
+  .all-posts-container::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  .rp-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 0 10px;
+    opacity: 0.6;
+  }
+
+  .all-posts-container > div:last-child .rp-divider { display: none; }
+
+
+  .post-image-wrapper { width: 100%; overflow: hidden; }
 
   .post-image {
     max-width: 90vw;
@@ -131,48 +177,165 @@ const allPosts = [...Object.values(projects), ...Object.values(blogs)];
     aspect-ratio: 16 / 9;
     border-radius: 10px;
   }
-  a {
-    text-decoration: none;
-    color: inherit;
-  }
 
+  /* ── Rich Markdown Typography ─────────────────────────────── */
   .markdown-content {
-    line-height: 1.8;
+    line-height: 1.85;
     font-size: 1rem;
-    background-color: rgb(0 0 0 / 5%);
+    color: #1a1a2e;
+    font-family: 'Georgia', serif;
+    max-width: 72ch;
   }
 
-  .tag-container {
+  /* Headings */
+  .markdown-content :is(h1,h2,h3,h4,h5,h6) {
+    font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+    font-weight: 700;
+    line-height: 1.3;
+    margin: 2rem 0 0.75rem;
+    color: #0f0f1a;
+  }
+  .markdown-content h1 { font-size: 2rem; }
+  .markdown-content h2 {
+    font-size: 1.5rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 2px solid #e9ecef;
+  }
+  .markdown-content h3 {
+    font-size: 1.2rem;
+    padding-left: 0.75rem;
+    border-left: 3px solid #6366f1;
+  }
+  .markdown-content h4 { font-size: 1.05rem; color: #4b5563; }
+
+  /* Paragraphs */
+  .markdown-content p { margin: 1rem 0; }
+
+  /* Links */
+  .markdown-content a {
+    color: #6366f1;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.2s;
+  }
+  .markdown-content a:hover { color: #4338ca; }
+
+  /* Inline code */
+  .markdown-content :not(pre) > code {
+    background: #f1f5f9;
+    color: #be185d;
+    padding: 0.15em 0.45em;
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-size: 0.88em;
+    border: 1px solid #e2e8f0;
+  }
+
+  /* Code blocks */
+  .markdown-content pre {
+    background: #0f172a;
+    color: #e2e8f0;
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
     overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 0.88rem;
+    line-height: 1.7;
+    margin: 1.5rem 0;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+    border: 1px solid #1e293b;
+  }
+  .markdown-content pre code {
+    background: none;
+    color: inherit;
+    padding: 0;
+    border: none;
+    font-size: inherit;
+  }
+
+  /* Blockquote */
+  .markdown-content blockquote {
+    margin: 1.5rem 0;
+    padding: 1rem 1.25rem;
+    border-left: 4px solid #6366f1;
+    background: #f8f7ff;
+    border-radius: 0 8px 8px 0;
+    color: #374151;
+    font-style: italic;
+  }
+  .markdown-content blockquote p { margin: 0; }
+
+  /* Lists */
+  .markdown-content ul, .markdown-content ol {
+    padding-left: 1.5rem;
+    margin: 1rem 0;
+  }
+  .markdown-content li { margin: 0.4rem 0; }
+  .markdown-content ul li::marker { color: #6366f1; }
+  .markdown-content ol li::marker { color: #6366f1; font-weight: 600; }
+
+  /* Nested lists */
+  .markdown-content li > ul, .markdown-content li > ol { margin: 0.25rem 0; }
+
+  /* Strong / em */
+  .markdown-content strong { color: #111827; font-weight: 700; }
+  .markdown-content em { color: #4b5563; }
+
+  /* Tables */
+  .markdown-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.93rem;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 8px rgba(0,0,0,0.07);
+  }
+  .markdown-content th {
+    background: #0f0f1a;
+    color: #fff;
+    padding: 0.65rem 1rem;
+    text-align: left;
+    font-weight: 600;
+  }
+  .markdown-content td {
+    padding: 0.6rem 1rem;
+    border-bottom: 1px solid #e9ecef;
+  }
+  .markdown-content tr:last-child td { border-bottom: none; }
+  .markdown-content tr:nth-child(even) td { background: #f8f9fa; }
+
+  /* HR */
+  .markdown-content hr {
+    border: none;
+    border-top: 2px dashed #e2e8f0;
+    margin: 2rem 0;
+  }
+
+  /* Images inside markdown */
+  .markdown-content img {
     max-width: 100%;
-    -webkit-overflow-scrolling: touch;
+    border-radius: 8px;
+    margin: 1rem 0;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
   }
 
-  .tag-container::-webkit-scrollbar {
-    display: none;
+  /* Date meta */
+  .markdown-content .post-date {
+    color: #6b7280;
+    font-size: 0.85rem;
+    font-family: var(--font-mono);
+    margin-bottom: 2rem;
+    display: block;
   }
 
-  .post-tags .badge {
-    margin-right: 5px;
-    margin-bottom: 5px;
-  }
+  .tag-container { overflow-x: auto; max-width: 100%; -webkit-overflow-scrolling: touch; }
+  .tag-container::-webkit-scrollbar { display: none; }
+  .post-tags .badge { margin: 0 5px 5px 0; }
+  .all-posts-container { max-height: 500px; overflow-y: auto; }
 
-  .all-posts-container {
-    max-height: 500px;
-    overflow-y: auto;
-  }
-
-  @media (max-width: 991px) {
-    .post-image {
-      max-height: 250px;
-    }
-  }
-
-  @media (max-width: 576px) {
-    .post-image {
-      max-height: 200px;
-    }
-  }
+  @media (max-width: 991px) { .post-image { max-height: 250px; } }
+  @media (max-width: 576px)  { .post-image { max-height: 200px; } }
 </style>
 
 <script>

@@ -1,28 +1,46 @@
-/* body {
-    margin: 0;
-    padding: 0;
-  }
-  
-  main {
-    margin-left: 240px;
-  }
-  
-  #content {
-    margin-top: 60px; 
-  }
-  
-  .tags-container {
-    white-space: nowrap;
-  }
-  
-  .tags-container button {
-    border-radius: 20px;
-    font-weight: 500;
-    padding: 5px 15px;
-  }
-  
-  .tags-container button.active {
-    background-color: #f1f1f1;
-    border-color: #ddd;
-    color: #000;
-  } */
+/* ── Design Tokens ─────────────────────────────────────────── */
+:root {
+  --nav-h: 60px;
+  --sidebar-w: 240px;
+
+  /* Neutral palette */
+  --bg: #ffffff;
+  --surface: #f8f9fa;
+  --border: #e9ecef;
+  --text: #212529;
+  --muted: #6c757d;
+
+  /* Brand */
+  --accent: #0f0f0f;
+  --accent-hover: #333;
+
+  /* Terminal (dark theme) */
+  --term-bg: #1a1b26;
+  --term-surface: #1f2335;
+  --term-border: #2f334d;
+  --term-text: #a9b1d6;
+  --term-blue: #7aa2f7;
+  --term-cyan: #7dcfff;
+  --term-green: #9ece6a;
+  --term-purple: #bb9af7;
+  --term-red: #f7768e;
+  --term-yellow: #e0af68;
+
+  /* Typography */
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+}
+
+/* ── Base ──────────────────────────────────────────────────── */
+body {
+  font-size: clamp(14px, 1vw, 18px);
+  background: var(--bg);
+  color: var(--text);
+}
+
+main {
+  margin-top: var(--nav-h);
+  transition: margin-left 0.3s ease;
+}
+main.with-sidebar { margin-left: var(--sidebar-w); }
+
+a { text-decoration: none; color: inherit; }

@@ -1,34 +1,35 @@
-<!-- Add this inside your navbar's search section -->
+<!-- Terminal Component -->
 <div class="terminal-dropdown mx-4">
   <div class="input-group terminal-bar">
-    <input type="text" class="form-control terminal-input" id="terminal-input" placeholder="Type a command..." readonly>
-    <button class="btn btn-outline-secondary terminal-btn">
+    <input type="text" class="form-control terminal-input" id="terminal-input" placeholder="Try: help, calc 2+2, cowsay, neofetch ..." readonly>
+    <button class="btn terminal-btn" id="terminal-toggle-btn">
       <i class="fa-solid fa-terminal"></i>
     </button>
   </div>
-  
+
   <div class="terminal-window" id="terminal-window">
     <div class="terminal-header d-flex justify-content-between align-items-center px-3 py-2">
       <div class="terminal-controls">
-        <span class="control close"></span>
+        <span class="control close" id="terminal-close"></span>
         <span class="control minimize"></span>
         <span class="control maximize"></span>
       </div>
-      <small class="text-muted">Portfolio Terminal</small>
+      <small class="terminal-title">naveen@portfolio ~ </small>
+      <small class="terminal-hint">↑↓ history • Tab autocomplete</small>
     </div>
     <div class="terminal-body" id="terminal-body">
-      <div class="output welcome-message">Welcome to the portfolio terminal! Type 'help' for commands.</div>
+      <div class="output welcome-message" id="welcome-msg"></div>
       <div id="terminal-rows"></div>
       <div class="input-line">
-        <span class="prompt">guest@portfolio:<span class="path">~</span>$</span>
-        <input type="text" class="active-input" id="active-terminal-input" autofocus>
-        <span class="typed-cursor">█</span>
+        <span class="prompt">guest@portfolio:<span class="path" id="current-path">~</span>$</span>
+        <input type="text" class="active-input" id="active-terminal-input" autofocus autocomplete="off" spellcheck="false">
       </div>
     </div>
   </div>
 </div>
 
-<style>
+<style is:global>
+/* ── Terminal Bar (light, matches navbar) ──────────────────── */
 .terminal-dropdown {
   position: relative;
   width: 100%;
@@ -36,354 +37,518 @@
   margin: 0 auto;
 }
 
-/* Hide default input on mobile */
-@media (max-width: 595px) {
-  .terminal-input {
-    display: none !important;
-  }
-  
-  .terminal-btn {
-    border-radius: 4px !important;
-    margin-left: auto;
-  }
-  
-  .terminal-dropdown {
-    margin: 0 !important; 
-  }
+.terminal-btn {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  transition: all 0.2s;
+}
+.terminal-btn:hover { background: var(--border); color: var(--accent); }
+
+.terminal-input {
+  background: var(--surface);
+  border-color: var(--border);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+}
+.terminal-input:focus {
+  background: var(--bg);
+  border-color: #94a3b8;
+  box-shadow: 0 0 0 0.15rem rgba(99,102,241,0.15);
+  color: var(--text);
 }
 
+@media (max-width: 595px) {
+  .terminal-input { display: none !important; }
+  .terminal-btn { border-radius: 4px !important; margin-left: auto; }
+  .terminal-dropdown { margin: 0 !important; }
+}
+
+/* ── Terminal Window (light theme) ────────────────────────── */
 .terminal-window {
   display: none;
   position: absolute;
-  top: calc(100% + 10px);
-  left: 0;
-  right: 0;
-  background: #1a1b26;
-  border-radius: 10px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  top: calc(100% + 8px);
+  left: 0; right: 0;
+  background: #fafbfc;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.15), 0 2px 8px rgba(0,0,0,0.08);
   z-index: 1000;
   overflow: hidden;
-  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-family: var(--font-mono);
   opacity: 0;
-  transform: translateY(-10px);
-  transition: all 0.3s ease;
+  transform: translateY(-8px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
 }
-
-.terminal-window.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.terminal-bar {
-  transition: all 0.3s ease;
-}
-
-.terminal-bar.hide {
-  opacity: 0;
-  transform: translateY(-10px);
-}
+.terminal-window.show { display: block; opacity: 1; transform: translateY(0); }
 
 .terminal-header {
-  background: #1f2335;
-  border-bottom: 1px solid #2f334d;
+  background: #f1f3f5;
+  border-bottom: 1px solid #e2e6ea;
 }
+.terminal-title { color: #6b7280; font-size: 0.78rem; }
+.terminal-hint  { color: #9ca3af; font-size: 0.72rem; }
 
-.terminal-controls {
-  display: flex;
-  gap: 8px;
-}
-
+.terminal-controls { display: flex; gap: 7px; }
 .control {
-  width: 12px;
-  height: 12px;
+  width: 12px; height: 12px;
   border-radius: 50%;
   display: inline-block;
+  cursor: pointer;
+  transition: filter 0.2s;
 }
-
-.close { background: #ff5f57; }
+.control:hover { filter: brightness(0.85); }
+.close    { background: #ff5f57; }
 .minimize { background: #febc2e; }
 .maximize { background: #28c840; }
 
 .terminal-body {
-  padding: 16px;
-  max-height: 400px;
+  padding: 14px 16px;
+  max-height: 480px;
   overflow-y: auto;
-  color: #a9b1d6;
-  font-size: 14px;
-  line-height: 1.5;
+  color: #1e293b;
+  font-size: 0.85rem;
+  line-height: 1.65;
 }
 
-.input-line {
-  display: flex;
-  align-items: center;
-  margin-top: 8px;
-  position: relative; /* Add this */
-}
+/* Scrollbar */
+.terminal-body::-webkit-scrollbar       { width: 6px; }
+.terminal-body::-webkit-scrollbar-track { background: #f1f3f5; }
+.terminal-body::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+.terminal-body::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 
+.input-line { display: flex; align-items: center; margin-top: 8px; }
 .active-input {
   background: transparent;
   border: none;
-  color: #a9b1d6;
+  color: #1e293b;
   font-family: inherit;
   font-size: inherit;
-  width: 1px;  /* Change from flex: 1 to width: 1px */
-  flex-grow: 1; /* Add this */
+  flex: 1;
   outline: none;
   margin-left: 8px;
-  position: relative; /* Add this */
-  caret-color: transparent;
+  caret-color: #6366f1;
 }
 
+/* Prompt */
+.prompt { color: #6366f1; white-space: nowrap; font-weight: 700; user-select: none; }
+.path   { color: #16a34a; }
 
-.prompt {
-  color: #7aa2f7;
-  white-space: nowrap;
-}
+/* Output types */
+.output { margin: 6px 0; white-space: pre-wrap; word-wrap: break-word; }
+.output.error   { color: #dc2626; }
+.output.success { color: #16a34a; }
+.output.info    { color: #2563eb; }
+.output.warning { color: #d97706; }
+.output.muted   { color: #6b7280; }
 
-.path {
-  color: #9ece6a;
-}
-
-.output {
-  margin-bottom: 8px;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-}
-
-.output.error {
-  color: #f7768e;
-}
-
-.output.success {
-  color: #9ece6a;
-}
-
+/* Welcome banner */
 .welcome-message {
-  color: #bb9af7;
+  background: linear-gradient(135deg, #f0f4ff 0%, #faf0ff 100%);
+  border: 1px solid #e0e7ff;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  color: #3730a3;
   font-weight: 500;
 }
 
-.typed-cursor {
-  position: absolute; /* Add this */
-  left: calc(8px + 17ch); /* Position after prompt spacing */
-  animation: blink 1s infinite;
-  color: #7aa2f7;
-  pointer-events: none; /* Add this */
+/* File/directory colors */
+.dir  { color: #2563eb; font-weight: 600; }
+.file { color: #374151; }
+.exe  { color: #16a34a; font-weight: 600; }
+
+/* Table output */
+.term-table { border-collapse: collapse; width: 100%; margin: 4px 0; }
+.term-table td { padding: 2px 12px 2px 0; vertical-align: top; }
+.term-table .col-key { color: #6366f1; font-weight: 600; white-space: nowrap; }
+.term-table .col-sep { color: #9ca3af; }
+
+/* Calc result */
+.calc-result {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 6px;
+  padding: 6px 12px;
+  color: #15803d;
+  font-size: 1rem;
+  font-weight: 700;
+  display: inline-block;
+}
+.calc-error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 6px;
+  padding: 6px 12px;
+  color: #dc2626;
+  display: inline-block;
 }
 
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-}
-
-.terminal-body::-webkit-scrollbar {
-  width: 8px;
-}
-
-.terminal-body::-webkit-scrollbar-track {
-  background: #1f2335;
-}
-
-.terminal-body::-webkit-scrollbar-thumb {
-  background: #2f334d;
-  border-radius: 4px;
-}
-
-.terminal-body::-webkit-scrollbar-thumb:hover {
-  background: #3b4261;
+/* Tag badge */
+.term-badge {
+  display: inline-block;
+  padding: 1px 8px;
+  border-radius: 10px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  margin: 1px 3px;
 }
 
 @media (max-width: 768px) {
   .terminal-window {
     position: fixed;
-    top: 60px;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    top: var(--nav-h);
+    left: 0; right: 0; bottom: 0;
     border-radius: 0;
-    max-height: calc(100vh - 60px);
+    max-height: none;
   }
-  
-  .terminal-body {
-    max-height: calc(100vh - 120px);
-  }
+  .terminal-body { max-height: calc(100vh - var(--nav-h) - 60px); }
 }
 </style>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  const terminalBar = document.querySelector('.terminal-bar');
   const terminalWindow = document.getElementById('terminal-window');
-  const terminalBody = document.getElementById('terminal-body');
-  const terminalRows = document.getElementById('terminal-rows');
-  const activeInput = document.getElementById('active-terminal-input');
+  const terminalBody   = document.getElementById('terminal-body');
+  const terminalRows   = document.getElementById('terminal-rows');
+  const activeInput    = document.getElementById('active-terminal-input');
+  const currentPathEl  = document.getElementById('current-path');
+  const closeBtn       = document.getElementById('terminal-close');
+  const toggleBtn      = document.getElementById('terminal-toggle-btn');
+  const terminalBar    = document.querySelector('.terminal-bar');
+  const welcomeEl      = document.getElementById('welcome-msg');
 
-  // File system simulation
-  const fileSystem = {
-    '/home/guest': {
-      'name.txt': 'Naveen Pal',
-      'aboutme.txt': 'I am a passionate developer. My interests lie in Cybersecurity, system programming and Web Development',
-      'projects.txt': `Will update soon`
+  // ── Welcome banner ────────────────────────────────────────
+  welcomeEl.innerHTML = `<b>👋 Welcome to Naveen's Portfolio Terminal v2.0</b>
+Type <span style="color:#6366f1">help</span> for commands &nbsp;•&nbsp; <span style="color:#6366f1">neofetch</span> for system info &nbsp;•&nbsp; <span style="color:#6366f1">calc</span> for math`;
+
+  // ── File System ───────────────────────────────────────────
+  const fs = {
+    '~': {
+      type: 'dir',
+      contents: {
+        'about.txt': { type: 'file', content: `Name:      Naveen Pal
+Role:      Full Stack Developer & Cybersecurity Enthusiast
+College:   IIT Gandhinagar — B.Tech CSE (2023–2027)
+Location:  Gujarat, India
+
+Interests: Cybersecurity · System Programming · Web Dev · Open Source
+Currently: Technical Lead @ EII, IIT Gandhinagar` },
+        'skills.txt': { type: 'file', content: `Languages   Python · JavaScript · C/C++ · Bash · SQL
+Web         Flask · Astro · React · HTML/CSS
+Cloud       Google Cloud Platform · AWS
+DevOps      Docker · Kubernetes · Knative · CI/CD
+Security    Penetration Testing · OWASP · Network Security
+Databases   PostgreSQL · MongoDB
+Tools       Git · Linux · Google App Script` },
+        'contact.txt': { type: 'file', content: `GitHub:    https://github.com/Naveen-Pal
+LinkedIn:  https://linkedin.com/in/naveenpal-
+Email:     naveen.pal@iitgn.ac.in
+LeetCode:  https://leetcode.com/u/BqizVLFWx6/
+Location:  IIT Gandhinagar, Gujarat, India` },
+        'achievements.txt': { type: 'file', content: `🏆  JEE Advanced Rank: 4029
+🚀  15+ Projects built
+🔀  20+ Accepted Pull Requests  
+🛡️  Responsible disclosure: BAS Portal CVE
+📚  Technical Lead — EII & E-Summit IITGN
+✈️  Indian Air Force SSB Cleared` },
+        'resume.pdf': { type: 'file', content: '📄 Open your resume: /resume_naveen.pdf' },
+        'posts': {
+          type: 'dir',
+          contents: {
+            'bas-cybersec.md':    { type: 'file', content: 'Discovering Default Credentials in BAS Portal — Cybersecurity, 2023' },
+            'eii-web.md':         { type: 'file', content: 'Technical Lead at EII & E-Summit — Web Development, 2023' },
+            'app-script.md':      { type: 'file', content: 'App Script to Auto Schedule Meets from Emails — Automation, 2023' },
+            'ripplica.md':        { type: 'file', content: 'Software Intern at Ripplica — AI, Python, Flask, 2024' },
+            'serverless-srip.md': { type: 'file', content: 'SRIP Portal Serverless Migration — Kubernetes, Knative, 2023' },
+            'nda-ssb.md':         { type: 'file', content: 'My Journey Through NDA SSB — Life Experience, 2022' },
+            'tor-network.md':     { type: 'file', content: 'Understanding the Tor Network — Security, 2024' },
+            'void-battle.md':     { type: 'file', content: 'Void Battle: Terminal Game — Python, Game Dev, 2024' },
+          }
+        }
+      }
     }
   };
 
-  let currentPath = '/home/guest';
+  let currentPath = '~';
+  let history = [], histIdx = -1;
 
-  // Command handlers
+  // ── Path helpers ──────────────────────────────────────────
+  const resolve = (p) => {
+    if (!p || p === '~' || p === '/') return '~';
+    if (p.startsWith('~/') || p.startsWith('/')) return p.startsWith('/') ? '~' + p : p;
+    if (currentPath === '~') return p === '..' ? '~' : `~/${p}`;
+    const parts = currentPath.replace(/^~\/?/, '').split('/').filter(Boolean);
+    if (p === '..') { parts.pop(); return parts.length ? `~/${parts.join('/')}` : '~'; }
+    return `~/${[...parts, p].join('/')}`;
+  };
+
+  const getNode = (p) => {
+    if (p === '~') return fs['~'];
+    const parts = p.replace(/^~\/?/, '').split('/').filter(Boolean);
+    return parts.reduce((node, seg) => node?.contents?.[seg] ?? null, fs['~']);
+  };
+
+  // ── Output helpers ────────────────────────────────────────
+  const html = (s, cls = '') => `<div class="output ${cls}">${s}</div>`;
+  const table = (rows) => `<table class="term-table">${rows.map(([k,s,v]) =>
+    `<tr><td class="col-key">${k}</td><td class="col-sep">${s}</td><td>${v}</td></tr>`
+  ).join('')}</table>`;
+
+  // ── Commands ──────────────────────────────────────────────
   const commands = {
+    help: () => `<div class="output">
+<b style="color:#6366f1">Navigation</b>
+  <span class="col-key">ls</span>  [path]         List directory
+  <span class="col-key">cd</span>  &lt;dir&gt;          Change directory  
+  <span class="col-key">pwd</span>                Working directory
+  <span class="col-key">tree</span>               Directory tree
+
+<b style="color:#6366f1">Files</b>
+  <span class="col-key">cat</span> &lt;file&gt;         Read file
+  <span class="col-key">head</span> &lt;file&gt;        First 5 lines
+  <span class="col-key">wc</span>  &lt;file&gt;         Word count
+
+<b style="color:#6366f1">Info &amp; Fun</b>
+  <span class="col-key">neofetch</span>           System info card
+  <span class="col-key">whoami</span>             Current user
+  <span class="col-key">date</span>               Current date/time
+  <span class="col-key">echo</span> &lt;text&gt;        Print text
+  <span class="col-key">cowsay</span> &lt;text&gt;      ASCII cow 🐄
+  <span class="col-key">fortune</span>            Random quote
+  <span class="col-key">ascii</span>              ASCII art
+  <span class="col-key">matrix</span>             Enter the Matrix
+
+<b style="color:#6366f1">Calculator</b>
+  <span class="col-key">calc</span> &lt;expr&gt;        Math: calc 2^10 + sin(30)
+  <span class="col-key">base</span> &lt;n&gt; &lt;from&gt; &lt;to&gt;  Convert base: base 255 10 16
+
+<b style="color:#6366f1">Utility</b>
+  <span class="col-key">clear</span>              Clear screen
+  <span class="col-key">history</span>            Command history
+  <span class="col-key">banner</span> &lt;text&gt;      Big text banner
+</div>`,
+
     ls: (args) => {
-      const path = args[0] || currentPath;
-      return Object.keys(fileSystem[path]).join('  ');
+      const target = resolve(args[0]);
+      const node = getNode(target);
+      if (!node) return html(`ls: no such file or directory: ${args[0] || target}`, 'error');
+      if (node.type !== 'dir') return html(`ls: not a directory: ${args[0]}`, 'error');
+      const entries = Object.entries(node.contents);
+      if (!entries.length) return '';
+      return `<div class="output">${entries.map(([name, n]) =>
+        n.type === 'dir'
+          ? `<span class="dir">${name}/</span>`
+          : `<span class="file">${name}</span>`
+      ).join('  ')}</div>`;
     },
-    pwd: () => currentPath,
+
     cd: (args) => {
-      const newPath = args[0] || '/home/guest';
-      if (fileSystem[newPath]) {
-        currentPath = newPath;
-        return '';
-      }
-      return `cd: no such directory: ${newPath}`;
+      if (!args[0]) { currentPath = '~'; currentPathEl.textContent = '~'; return ''; }
+      const t = resolve(args[0]);
+      const node = getNode(t);
+      if (!node) return html(`cd: no such directory: ${args[0]}`, 'error');
+      if (node.type !== 'dir') return html(`cd: not a directory: ${args[0]}`, 'error');
+      currentPath = t;
+      currentPathEl.textContent = t;
+      return '';
     },
+
+    pwd: () => html(currentPath.replace('~', '/home/guest')),
+
     cat: (args) => {
-      if (!args.length) return 'Usage: cat <filename>';
-      const file = fileSystem[currentPath][args[0]];
-      return file || `cat: ${args[0]}: No such file`;
+      if (!args[0]) return html('cat: missing file operand', 'error');
+      const node = getNode(resolve(args[0]));
+      if (!node) return html(`cat: ${args[0]}: No such file`, 'error');
+      if (node.type === 'dir') return html(`cat: ${args[0]}: Is a directory`, 'error');
+      return html(node.content);
     },
-    clear: () => {
-      terminalRows.innerHTML = "";
-      return "";
+
+    head: (args) => {
+      if (!args[0]) return html('head: missing file operand', 'error');
+      const node = getNode(resolve(args[0]));
+      if (!node || node.type === 'dir') return html(`head: ${args[0]}: No such file`, 'error');
+      return html(node.content.split('\n').slice(0, 5).join('\n'));
     },
-    help: () => `Available commands:
-• ls - List files in current directory
-• pwd - Print working directory
-• cd - Change directory
-• cat - View file contents
-• clear - Clear terminal
-• echo - Print text
-• date - Show current date
-• whoami - Show current user
-• help - Show this help message`,
-    echo: (args) => args.join(' '),
-    date: () => new Date().toLocaleString(),
-    whoami: () => 'guest',
+
+    wc: (args) => {
+      if (!args[0]) return html('wc: missing file operand', 'error');
+      const node = getNode(resolve(args[0]));
+      if (!node || node.type === 'dir') return html(`wc: ${args[0]}: No such file`, 'error');
+      const { content } = node;
+      return html(`  ${content.split('\n').length} lines  ${content.split(/\s+/).filter(Boolean).length} words  ${content.length} chars   ${args[0]}`);
+    },
+
     tree: () => {
-      let output = '.';
-      for (const file of Object.keys(fileSystem[currentPath])) {
-        output += `\n└── ${file}`;
+      const build = (node, pre = '', last = true) => {
+        if (node.type !== 'dir') return '';
+        return Object.entries(node.contents).map(([name, child], i, arr) => {
+          const isLast = i === arr.length - 1;
+          const marker = isLast ? '└── ' : '├── ';
+          const cls = child.type === 'dir' ? 'dir' : 'file';
+          const suffix = child.type === 'dir' ? '/' : '';
+          const line = `${pre}${marker}<span class="${cls}">${name}${suffix}</span>`;
+          const childPre = pre + (isLast ? '    ' : '│   ');
+          return line + '\n' + build(child, childPre, isLast);
+        }).join('');
+      };
+      return `<div class="output">.\n${build(getNode(currentPath))}</div>`;
+    },
+
+    clear: () => { terminalRows.innerHTML = ''; return ''; },
+
+    echo: (args) => html(args.join(' ')),
+    date: () => html(new Date().toLocaleString('en-IN', { dateStyle: 'full', timeStyle: 'medium' })),
+    whoami: () => html('guest'),
+
+    history: () => {
+      if (!history.length) return html('No commands in history', 'muted');
+      return html(history.map((c, i) => `  ${String(i+1).padStart(3)}  ${c}`).join('\n'));
+    },
+
+    // ── Calc ───────────────────────────────────────────────
+    calc: (args) => {
+      if (!args.length) return html('Usage: calc &lt;expression&gt;<br>Example: calc 2^10 + sqrt(144)', 'info');
+      const expr = args.join(' ')
+        .replace(/\^/g, '**')
+        .replace(/sin\(/g, 'Math.sin(')
+        .replace(/cos\(/g, 'Math.cos(')
+        .replace(/tan\(/g, 'Math.tan(')
+        .replace(/sqrt\(/g, 'Math.sqrt(')
+        .replace(/log\(/g, 'Math.log10(')
+        .replace(/ln\(/g, 'Math.log(')
+        .replace(/abs\(/g, 'Math.abs(')
+        .replace(/floor\(/g, 'Math.floor(')
+        .replace(/ceil\(/g, 'Math.ceil(')
+        .replace(/round\(/g, 'Math.round(')
+        .replace(/pi/gi, 'Math.PI')
+        .replace(/e(?![a-z])/g, 'Math.E');
+      try {
+        // Safety: only allow math expressions
+        if (/[a-df-wyz]/i.test(expr.replace(/Math\.\w+/g, ''))) throw new Error('Invalid');
+        const result = Function(`"use strict"; return (${expr})`)();
+        if (!isFinite(result)) throw new Error('Result is not finite');
+        const fmt = Number.isInteger(result) ? result : parseFloat(result.toFixed(10));
+        return `<div class="output">${args.join(' ')} = <span class="calc-result">${fmt}</span></div>`;
+      } catch {
+        return `<div class="output"><span class="calc-error">⚠ Cannot evaluate: ${args.join(' ')}</span></div>`;
       }
-      return output;
-    }
+    },
+
+    base: (args) => {
+      if (args.length < 3) return html('Usage: base &lt;number&gt; &lt;from_base&gt; &lt;to_base&gt;<br>Example: base 255 10 16', 'info');
+      try {
+        const [num, from, to] = [args[0], parseInt(args[1]), parseInt(args[2])];
+        const decimal = parseInt(num, from);
+        if (isNaN(decimal)) return html('Invalid number for given base', 'error');
+        const result = decimal.toString(to).toUpperCase();
+        return html(`${num} (base ${from}) = <b>${result}</b> (base ${to})`);
+      } catch { return html('Conversion error', 'error'); }
+    },
+
+    // ── Fun commands ──────────────────────────────────────
+    neofetch: () => `<div class="output">
+<span style="color:#6366f1;font-weight:700">        .''.        </span>  <b>guest@naveen-portfolio</b>
+<span style="color:#6366f1;font-weight:700">      .''   ''.      </span>  <span style="color:#9ca3af">──────────────────────</span>
+<span style="color:#6366f1;font-weight:700">    .'  NAVEEN '.     </span>  <b>OS:</b>       Portfolio v2.0
+<span style="color:#6366f1;font-weight:700">   '   PAL       '   </span>  <b>Host:</b>     IIT Gandhinagar
+<span style="color:#6366f1;font-weight:700">   '.  ★ IITGN  .'   </span>  <b>Shell:</b>    portfolio-sh 2.0
+<span style="color:#6366f1;font-weight:700">     ''.      .''    </span>  <b>Role:</b>     Full Stack + Security
+<span style="color:#6366f1;font-weight:700">        '''''        </span>  <b>Skills:</b>   Python JS C/C++ Flask
+                        <b>Time:</b>     ${new Date().toLocaleTimeString()}
+                        <b>Memory:</b>   Unlimited curiosity
+<span style="background:#6366f1;color:#fff;padding:0 6px">  </span><span style="background:#2563eb;color:#fff;padding:0 6px">  </span><span style="background:#16a34a;color:#fff;padding:0 6px">  </span><span style="background:#d97706;color:#fff;padding:0 6px">  </span><span style="background:#dc2626;color:#fff;padding:0 6px">  </span><span style="background:#9333ea;color:#fff;padding:0 6px">  </span>
+</div>`,
+
+    cowsay: (args) => {
+      const msg = args.join(' ') || 'Mooo! Type something after cowsay';
+      const line = '─'.repeat(msg.length + 2);
+      return `<div class="output">  ┌${line}┐\n  │ ${msg} │\n  └${line}┘\n       \\   ^__^\n        \\  (oo)\\_______\n           (__)\\       )\\/\\\n               ||----w |\n               ||     ||</div>`;
+    },
+
+    fortune: () => {
+      const quotes = [
+        '"The best way to predict the future is to invent it." — Alan Kay',
+        '"First, solve the problem. Then, write the code." — John Johnson',
+        '"Security is a process, not a product." — Bruce Schneier',
+        '"Programs must be written for people to read, and only incidentally for machines to execute." — Abelson',
+        '"The most disastrous thing that you can ever learn is your first programming language." — Alan Kay',
+        '"In God we trust. All others must bring data." — W. Edwards Deming',
+        '"Talk is cheap. Show me the code." — Linus Torvalds',
+        '"It\'s not a bug — it\'s an undocumented feature." — Anonymous',
+        '"Any fool can write code that a computer can understand. Good programmers write code that humans can understand." — Fowler',
+        '"Premature optimization is the root of all evil." — Knuth',
+      ];
+      return `<div class="output" style="font-style:italic;color:#6b7280">${quotes[Math.floor(Math.random() * quotes.length)]}</div>`;
+    },
+
+
+    banner: (args) => {
+      const text = (args.join(' ') || 'hi').toUpperCase().slice(0, 10);
+      return `<div class="output" style="color:#6366f1;font-size:1.4rem;letter-spacing:0.2em;font-weight:900;text-shadow:1px 1px 0 #e0e7ff">${text}</div>`;
+    },
+
+    uname: () => html('Portfolio-Terminal 2.0.0 (WebKit)'),
   };
 
-  function handleCommand(cmd) {
-    const normalizedCmd = cmd.replace(/\/n/g, '\n');
-    const [command, ...rest] = normalizedCmd.trim().split(' ');
-    const handler = commands[command];
-    if (handler) {
-      const rawOutput = handler(rest);
-      return rawOutput.toString().replace(/\/n/g, '\n');
-    }
-    return `Command not found: ${command}. Type 'help' for available commands.`;
-  }
-
-  // Toggle terminal
-  const terminalButton = document.querySelector('.terminal-btn');
-  const terminalInput = document.querySelector('.terminal-input');
-
-  function showTerminal() {
-    terminalBar.classList.add('hide');
-    setTimeout(() => {
-      terminalWindow.style.display = 'block';
-      setTimeout(() => {
-        terminalWindow.classList.add('show');
-        activeInput.focus();
-      }, 50);
-    }, 300);
-  }
-
-  function hideTerminal() {
-    terminalWindow.classList.remove('show');
-    setTimeout(() => {
-      terminalWindow.style.display = 'none';
-      terminalBar.classList.remove('hide');
-    }, 300);
-  }
-
-  terminalBar.addEventListener('click', showTerminal);
-  terminalButton.addEventListener('click', (e) => {
-    e.stopPropagation();
-    showTerminal();
-  });
-
-  // Handle input
+  // Tab autocomplete
+  const allCmds = Object.keys(commands);
   activeInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-      const cmd = activeInput.value.trim();
-      if (!cmd) return;
-
-      // Add command to terminal
-      const cmdLine = document.createElement('div');
-      cmdLine.innerHTML = `<span class="prompt">guest@portfolio:<span class="path">~</span>$ </span>${cmd}`;
-      terminalRows.appendChild(cmdLine);
-
-      // Process command
-      const commandOutput = handleCommand(cmd);
-
-      // Add output
-      const output = document.createElement('div');
-      output.classList.add('output');
-      output.textContent = commandOutput;
-      terminalRows.appendChild(output);
-
-      // Clear input and scroll to bottom
+    if (e.key === 'Tab') {
+      e.preventDefault();
+      const val = activeInput.value.trim();
+      const match = allCmds.find(c => c.startsWith(val));
+      if (match) activeInput.value = match + ' ';
+    } else if (e.key === 'Enter') {
+      run(activeInput.value);
       activeInput.value = '';
-      terminalBody.scrollTop = terminalBody.scrollHeight;
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (histIdx > 0) activeInput.value = history[--histIdx];
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (histIdx < history.length - 1) activeInput.value = history[++histIdx];
+      else { histIdx = history.length; activeInput.value = ''; }
     }
   });
 
-  // Close terminal when clicking outside
-  document.addEventListener('click', (e) => {
-    if (!terminalWindow.contains(e.target) && 
-        !terminalBar.contains(e.target)) {
-      hideTerminal();
+  function run(input) {
+    const trimmed = input.trim();
+    if (!trimmed) return;
+    history.push(trimmed);
+    histIdx = history.length;
+
+    const [cmd, ...args] = trimmed.split(/\s+/);
+
+    // echo typed command
+    const cmdLine = document.createElement('div');
+    cmdLine.innerHTML = `<span class="prompt">guest@portfolio:<span class="path">${currentPathEl.textContent}</span>$</span> ${trimmed}`;
+    terminalRows.appendChild(cmdLine);
+
+    const output = commands[cmd]
+      ? commands[cmd](args)
+      : html(`<span>Command not found: <b>${cmd}</b>. Type <span style="color:#6366f1">help</span> for available commands.</span>`, 'error');
+
+    if (output) {
+      const div = document.createElement('div');
+      div.innerHTML = output;
+      terminalRows.appendChild(div);
     }
+    terminalBody.scrollTop = terminalBody.scrollHeight;
+  }
+
+  // Toggle
+  const show = () => { terminalWindow.classList.add('show'); setTimeout(() => activeInput.focus(), 80); };
+  const hide = () => terminalWindow.classList.remove('show');
+
+  terminalBar.addEventListener('click', show);
+  toggleBtn.addEventListener('click', (e) => { e.stopPropagation(); terminalWindow.classList.contains('show') ? hide() : show(); });
+  closeBtn.addEventListener('click', (e) => { e.stopPropagation(); hide(); });
+  terminalWindow.addEventListener('click', (e) => e.stopPropagation());
+  document.addEventListener('click', (e) => {
+    if (!terminalWindow.contains(e.target) && !terminalBar.contains(e.target)) hide();
   });
 });
-const cursor = document.querySelector('.typed-cursor');
-
-// Function to update cursor position
-function updateCursorPosition() {
-  const input = document.getElementById('active-terminal-input');
-  const prompt = document.querySelector('.prompt');
-  
-  // Create a temporary span to measure text width
-  const measureSpan = document.createElement('span');
-  measureSpan.style.visibility = 'hidden';
-  measureSpan.style.position = 'absolute';
-  measureSpan.style.whiteSpace = 'pre';
-  measureSpan.style.font = window.getComputedStyle(input).font;
-  measureSpan.textContent = input.value.substring(0, input.selectionStart);
-  document.body.appendChild(measureSpan);
-  
-  // Calculate new position
-  const inputRect = input.getBoundingClientRect();
-  const promptWidth = prompt.getBoundingClientRect().width;
-  const textWidth = measureSpan.getBoundingClientRect().width;
-  
-  // Update cursor position
-  cursor.style.left = `${promptWidth + textWidth}px`;
-  
-  // Clean up
-  document.body.removeChild(measureSpan);
-}
-
-// Add event listeners for cursor position updates
-const input = document.getElementById('active-terminal-input');
-input.addEventListener('input', updateCursorPosition);
-input.addEventListener('keydown', updateCursorPosition);
-input.addEventListener('keyup', updateCursorPosition);
-input.addEventListener('click', updateCursorPosition);
-
-// Initial cursor position
-updateCursorPosition();
 </script>

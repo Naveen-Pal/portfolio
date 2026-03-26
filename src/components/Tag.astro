@@ -1,11 +1,9 @@
 ---
 // Tags.astro
-const projects = await Astro.glob('../pages/projects/*.md');
-const blogs = await Astro.glob('../pages/blogs/*.md');
+const posts = await Astro.glob('../pages/posts/*.md');
 
 // Collect unique tags from all posts
-const allPosts = [...projects, ...blogs];
-const uniqueTags = new Set(allPosts.flatMap(post => post.frontmatter.tags || []));
+const uniqueTags = new Set(posts.flatMap(post => post.frontmatter.tags || []));
 ---
 
 <div class="tags-container d-flex gap-2 py-3 px-3 overflow-auto">
@@ -36,7 +34,7 @@ const uniqueTags = new Set(allPosts.flatMap(post => post.frontmatter.tags || [])
 }
 
 .tags-container button.active {
-  background-color: #0f0f0f;
+  background: var(--accent);
   border-color: #ddd;
   color: #fff;
 }
