@@ -16,10 +16,13 @@ links: [
 tags: ["AI", "Automation", "Python", "Google Cloud platform", "Flask"]
 ---
 
+## Ripplica
+A startup by IITGN Alumni Bhavesh Jain, working on web automation solutions.
+
 Implemented CI/CD pipelines, containerized services, set up API authorization, and work with BrowserUse library.
 
 Managed domain configuration and production infrastructure on GCP using Cloud Run, logging, OAuth.
 
 Engineered a complete Electron application, React components, and FastAPI proxies with a focus on code quality.
 
-*soon I'll upadate it*
+Thanks to Bhanvesh Jain, I really enjoyed the work environment.
